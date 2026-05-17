@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "FCNVM9KW43.com.juangarrapatajr.klaro",
+        "paths": [
+          "/join/*",
+          "/join",
+          "/r/*",
+          "/r"
+        ]
+      }
+    ]
+  }
+}
