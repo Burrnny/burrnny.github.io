@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#26262C">
+<title>Klaro · Unirse a sala</title>
+<style>
+  :root {
+    --bg: #26262C;
+    --surface: #2E2E36;
+    --elevated: #36363F;
+    --border: #3C3C46;
+    --text: #F0F0F4;
+    --textSec: #9090A0;
+    --purple: #8B82E8;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+    text-align: center;
+  }
+  .brand {
+    font-size: 18px;
+    color: var(--purple);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .code-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 16px;
+    margin: 28px 0 24px;
+  }
+  .code-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--textSec);
+    margin-bottom: 10px;
+  }
+  .code {
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: var(--purple);
+    color: var(--bg);
+  }
+  .btn-secondary {
+    background: var(--elevated);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .hint {
+    color: var(--textSec);
+    font-size: 14px;
+    margin: 20px 0 0;
+    line-height: 1.5;
+  }
+  .lang-en { display: none; }
+  html[lang="en"] .lang-es { display: none; }
+  html[lang="en"] .lang-en { display: inline; }
+  .footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--textSec);
+  }
+  .footer a { color: var(--textSec); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">KLARO</div>
+  <h1>
+    <span class="lang-es">Te invitaron a una sala</span>
+    <span class="lang-en">You've been invited</span>
+  </h1>
+
+  <div class="code-card" id="codeCard" style="display:none">
+    <div class="code-label">
+      <span class="lang-es">Código de sala</span>
+      <span class="lang-en">Room code</span>
+    </div>
+    <div class="code" id="codeValue">——————</div>
+  </div>
+
+  <div id="appButtons">
+    <a id="openAppBtn" class="btn btn-primary" href="#">
+      <span class="lang-es">Abrir en Klaro</span>
+      <span class="lang-en">Open in Klaro</span>
+    </a>
+    <a class="btn btn-secondary"
+       href="https://apps.apple.com/app/klaro-app/id6766996270">
+      <span class="lang-es">Descargar Klaro · App Store</span>
+      <span class="lang-en">Download Klaro · App Store</span>
+    </a>
+  </div>
+
+  <p class="hint" id="iosHint" style="display:none">
+    <span class="lang-es">Si ya tienes la app, abrirá automáticamente. Si no, descárgala primero e ingresa el código manualmente.</span>
+    <span class="lang-en">If you have the app, it will open automatically. Otherwise, download it and enter the code manually.</span>
+  </p>
+  <p class="hint" id="desktopHint" style="display:none">
+    <span class="lang-es">Klaro está disponible para iPhone. Abre este link desde tu iPhone o anota el código y entra desde la app.</span>
+    <span class="lang-en">Klaro is iPhone-only. Open this link from your iPhone or note down the code and enter it from the app.</span>
+  </p>
+
+  <div class="footer">
+    Klaro · <a href="/karo-privacy/privacy.html">Privacy</a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Detectar idioma del navegador
+    var lang = (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+    document.documentElement.lang = lang;
+
+    // Parsear el código del path. Aceptamos /join/CODE, /join?code=CODE, /r/CODE
+    var path = window.location.pathname.replace(/\/+$/, '');
+    var search = new URLSearchParams(window.location.search);
+    var code = null;
+    var pathMatch = path.match(/^\/(?:join|r)\/([A-Z0-9]{4,12})$/i);
+    if (pathMatch) {
+      code = pathMatch[1].toUpperCase();
+    } else if (path === '/join' || path === '/r') {
+      code = (search.get('code') || '').toUpperCase();
+    }
+
+    // Si no es un path de join, mostramos solo redirect a app store
+    if (!code) {
+      document.getElementById('openAppBtn').style.display = 'none';
+      document.querySelector('h1').innerHTML = '<span class="lang-es">Página no encontrada</span><span class="lang-en">Page not found</span>';
+      return;
+    }
+
+    // Mostrar el código
+    document.getElementById('codeCard').style.display = 'block';
+    document.getElementById('codeValue').textContent = code;
+
+    // Universal link de Klaro — usa el path absoluto del sitio actual.
+    // iOS con app instalada intercepta este link ANTES de que el browser
+    // siga el href (gracias al AASA). Sin app, el browser navega y se
+    // queda en esta misma página (loop benigno) o muestra App Store.
+    var universalUrl = window.location.origin + '/join/' + code;
+    document.getElementById('openAppBtn').href = universalUrl;
+
+    // Detectar plataforma
+    var ua = navigator.userAgent;
+    var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIOS) {
+      document.getElementById('iosHint').style.display = 'block';
+      // Intentar abrir el universal link automaticamente cuando se llega a esta
+      // página desde un click en Messages/WhatsApp/etc — iOS abre la app si
+      // está instalada y el AASA está aprobado. Si la página termina cargando
+      // significa que la app NO está instalada → el botón secundario lleva al
+      // App Store.
+      // No hacemos auto-redirect a App Store: dejamos que el usuario decida.
+    } else {
+      document.getElementById('desktopHint').style.display = 'block';
+      document.getElementById('openAppBtn').style.display = 'none';
+    }
+  })();
+</script>
+</body>
+</html>
