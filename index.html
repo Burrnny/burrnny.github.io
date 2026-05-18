@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0F0E13">
-<meta name="description" content="Burrnny · Indie iOS developer. Klaro, Gravity Sort y más.">
-<meta property="og:title" content="Burrnny">
+<meta name="theme-color" content="#08080c">
+<meta name="description" content="Burrnny · Indie iOS developer · Klaro · Gravity Sort">
+<meta property="og:title" content="Burrnny · Indie iOS dev">
 <meta property="og:description" content="Indie iOS developer · Klaro · Gravity Sort">
 <meta property="og:image" content="https://burrnny.com/avatar.png">
 <meta property="og:url" content="https://burrnny.com">
@@ -15,44 +15,61 @@
 <title>Burrnny · Indie iOS dev</title>
 <style>
   :root {
-    --bg-deep: #0a0a0f;
-    --bg: #0f0e13;
-    --surface: rgba(255, 255, 255, 0.04);
-    --surface-hover: rgba(255, 255, 255, 0.07);
-    --border: rgba(255, 255, 255, 0.08);
+    --bg: #08080c;
+    --bg-surface: #0e0e14;
+    --surface: rgba(255, 255, 255, 0.03);
+    --surface-hi: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.07);
     --border-strong: rgba(255, 255, 255, 0.14);
-    --text: #f0f0f4;
-    --text-sec: #9a9aaa;
-    --text-tert: #5a5a68;
+    --text: #ffffff;
+    --text-sec: rgba(255, 255, 255, 0.6);
+    --text-tert: rgba(255, 255, 255, 0.35);
     --purple: #8b82e8;
+    --purple-glow: rgba(139, 130, 232, 0.4);
     --teal: #2db88a;
+    --teal-glow: rgba(45, 184, 138, 0.4);
     --amber: #f0a830;
     --coral: #e66b47;
     --rose: #e84a8a;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
 
   html, body {
-    background: var(--bg-deep);
+    background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
+  /* —— Background composite —— */
+  /* Capa 1: mesh gradient deep */
   body {
-    position: relative;
     background:
-      radial-gradient(ellipse at 20% 0%, rgba(139, 130, 232, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, rgba(45, 184, 138, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(240, 168, 48, 0.06) 0%, transparent 70%),
-      var(--bg-deep);
+      radial-gradient(ellipse 1200px 800px at 15% -10%, rgba(139, 130, 232, 0.22) 0%, transparent 50%),
+      radial-gradient(ellipse 1000px 700px at 85% 110%, rgba(45, 184, 138, 0.18) 0%, transparent 50%),
+      radial-gradient(circle 800px at 50% 40%, rgba(232, 74, 138, 0.08) 0%, transparent 60%),
+      var(--bg);
   }
 
-  /* Aurora — orbes blurred animados de fondo */
+  /* Capa 2: noise/grain overlay (SVG inline) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 200px 200px;
+  }
+
+  /* Aurora orbs flotantes */
   .aurora {
     position: fixed;
     inset: 0;
@@ -63,379 +80,472 @@
   .aurora .orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.35;
+    filter: blur(140px);
     will-change: transform;
   }
   .aurora .orb-1 {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, #8b82e8 0%, transparent 70%);
-    top: -200px; left: -150px;
-    animation: float-1 22s ease-in-out infinite;
+    width: 700px; height: 700px;
+    background: var(--purple);
+    top: -250px; left: -200px;
+    opacity: 0.28;
+    animation: drift-1 26s ease-in-out infinite;
   }
   .aurora .orb-2 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, #2db88a 0%, transparent 70%);
-    bottom: -150px; right: -100px;
-    animation: float-2 28s ease-in-out infinite;
+    width: 550px; height: 550px;
+    background: var(--teal);
+    bottom: -200px; right: -150px;
+    opacity: 0.25;
+    animation: drift-2 32s ease-in-out infinite;
   }
   .aurora .orb-3 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, #e84a8a 0%, transparent 70%);
-    top: 40%; left: 50%;
+    width: 380px; height: 380px;
+    background: var(--rose);
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.18;
-    animation: float-3 35s ease-in-out infinite;
+    opacity: 0.15;
+    animation: drift-3 40s ease-in-out infinite;
   }
-  @keyframes float-1 {
+  @keyframes drift-1 {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(120px, 80px) scale(1.15); }
+    33%      { transform: translate(150px, 100px) scale(1.15); }
+    66%      { transform: translate(80px, 200px) scale(0.95); }
   }
-  @keyframes float-2 {
+  @keyframes drift-2 {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(-100px, -90px) scale(1.1); }
+    33%      { transform: translate(-120px, -100px) scale(1.1); }
+    66%      { transform: translate(-200px, -50px) scale(1.05); }
   }
-  @keyframes float-3 {
+  @keyframes drift-3 {
     0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50%      { transform: translate(-30%, -70%) scale(1.2); }
+    50%      { transform: translate(-30%, -70%) scale(1.25); }
   }
 
-  /* Container principal */
+  /* Container */
   .container {
     position: relative;
-    z-index: 1;
-    max-width: 1100px;
+    z-index: 2;
+    max-width: 1140px;
     margin: 0 auto;
-    padding: 48px 24px 64px;
+    padding: 56px 24px 80px;
   }
 
-  /* Bento grid */
+  /* —— HERO header —— */
+  .hero-header {
+    text-align: center;
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .avatar-block {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+  .avatar-block::before {
+    content: "";
+    position: absolute;
+    inset: -28px;
+    background: conic-gradient(from 0deg, var(--purple), var(--teal), var(--rose), var(--amber), var(--purple));
+    border-radius: 50%;
+    filter: blur(28px);
+    opacity: 0.5;
+    z-index: -1;
+    animation: spin 12s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    display: block;
+  }
+  .available-dot {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 12px rgba(45, 184, 138, 0.6);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.12); }
+  }
+
+  .display-name {
+    font-size: clamp(56px, 9vw, 88px);
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff 0%, #b4adff 50%, #84e8c8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+  }
+  .display-tag {
+    font-size: 14px;
+    color: var(--text-sec);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+  }
+  .display-tag .dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 50%;
+    margin: 0 10px;
+    vertical-align: middle;
+    opacity: 0.4;
+  }
+  .display-bio {
+    font-size: 17px;
+    color: var(--text-sec);
+    line-height: 1.55;
+    max-width: 560px;
+    margin: 0 auto 26px;
+    font-weight: 400;
+  }
+  .quick-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--surface-hi);
+    border: 1px solid var(--border);
+    color: var(--text-sec);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .pill:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+  .pill .icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* —— Section title —— */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 48px 0 18px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--text-tert);
+    font-weight: 600;
+  }
+  .section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+  }
+
+  /* —— Bento grid —— */
   .bento {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    grid-auto-rows: minmax(120px, auto);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
   }
 
-  /* Card base — glassmorphism */
+  /* Card base */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 24px;
-    padding: 24px;
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    padding: 22px;
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, background 0.3s;
+  }
+  /* Shine highlight at top edge */
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    pointer-events: none;
   }
   .card.interactive {
-    cursor: pointer;
     text-decoration: none;
     color: inherit;
     display: block;
+    cursor: pointer;
   }
   .card.interactive:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     border-color: var(--border-strong);
-    background: var(--surface-hover);
+    background: var(--surface-hi);
   }
   .card.interactive:active {
     transform: translateY(-1px);
   }
-
-  /* Hero card — avatar + bio */
-  .hero {
-    grid-column: span 2;
-    grid-row: span 2;
-    padding: 36px 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background:
-      radial-gradient(circle at 30% 30%, rgba(139, 130, 232, 0.18), transparent 70%),
-      var(--surface);
-    min-height: 280px;
-  }
-  .hero .avatar-wrap {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin-bottom: 20px;
-  }
-  .hero .avatar-glow {
+  /* Spotlight follow cursor */
+  .card.interactive::after {
+    content: "";
     position: absolute;
-    inset: -12px;
-    background: radial-gradient(circle, rgba(139, 130, 232, 0.5), transparent 70%);
-    filter: blur(20px);
-    border-radius: 50%;
-    animation: pulse 4s ease-in-out infinite;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.07), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50%      { opacity: 0.9; }
-  }
-  .hero .avatar {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(255, 255, 255, 0.12);
-  }
-  .hero .name {
-    font-size: 42px;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    line-height: 1.05;
-    background: linear-gradient(135deg, #fff 0%, #b4adff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
-  }
-  .hero .handle {
-    font-size: 14px;
-    color: var(--text-sec);
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
-  .hero .bio {
-    font-size: 15px;
-    color: var(--text-sec);
-    line-height: 1.5;
-    max-width: 400px;
-  }
-  .hero .badges {
-    display: flex;
-    gap: 6px;
-    margin-top: 18px;
-    flex-wrap: wrap;
-  }
-  .hero .badge {
-    font-size: 11px;
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-sec);
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
+  .card.interactive:hover::after { opacity: 1; }
 
-  /* Social cards */
-  .social {
+  /* —— Social cards (col-span-3 on grid of 6) —— */
+  .social-card {
+    grid-column: span 3;
     display: flex;
     align-items: center;
     gap: 14px;
-    text-decoration: none;
-    color: inherit;
-    min-height: 72px;
+    min-height: 76px;
   }
-  .social .icon-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+  .social-card .icon-box {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    position: relative;
   }
-  .social .icon-wrap svg {
+  .social-card .icon-box svg {
     width: 22px;
     height: 22px;
   }
-  .social .meta {
+  .social-card .meta {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    flex: 1;
   }
-  .social .name {
+  .social-card .platform {
     font-size: 14px;
     font-weight: 600;
     color: var(--text);
     line-height: 1.2;
   }
-  .social .handle {
+  .social-card .handle {
     font-size: 12px;
     color: var(--text-sec);
-    margin-top: 2px;
+    margin-top: 3px;
   }
-  .social .arrow {
-    margin-left: auto;
+  .social-card .arrow {
     color: var(--text-tert);
     font-size: 18px;
-    transition: transform 0.25s ease, color 0.25s ease;
+    transition: transform 0.3s ease, color 0.3s;
   }
-  .card.interactive:hover .social .arrow {
-    transform: translateX(4px);
-    color: var(--text-sec);
+  .card.interactive:hover .social-card .arrow {
+    transform: translateX(5px);
+    color: var(--text);
   }
 
-  /* Color-coded social icons */
-  .social.twitch .icon-wrap { background: rgba(145, 70, 255, 0.15); color: #9146ff; }
-  .social.youtube .icon-wrap { background: rgba(255, 0, 0, 0.12); color: #ff3030; }
-  .social.tiktok .icon-wrap {
-    background: linear-gradient(135deg, rgba(0, 242, 234, 0.12), rgba(255, 0, 80, 0.12));
+  /* Platform colors */
+  .social-card.twitch .icon-box {
+    background: rgba(145, 70, 255, 0.18);
+    color: #b78dff;
+    box-shadow: 0 0 24px rgba(145, 70, 255, 0.2);
+  }
+  .social-card.youtube .icon-box {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff5454;
+    box-shadow: 0 0 24px rgba(255, 0, 0, 0.2);
+  }
+  .social-card.tiktok .icon-box {
+    background: linear-gradient(135deg, rgba(0, 242, 234, 0.18), rgba(255, 0, 80, 0.18));
     color: #fff;
   }
-  .social.instagram .icon-wrap {
-    background: linear-gradient(135deg, rgba(247, 118, 56, 0.15), rgba(232, 74, 138, 0.15), rgba(139, 130, 232, 0.15));
-    color: #e84a8a;
+  .social-card.instagram .icon-box {
+    background: linear-gradient(135deg, rgba(254, 218, 117, 0.2), rgba(225, 48, 108, 0.2), rgba(193, 53, 132, 0.2));
+    color: #f5cf6e;
+    box-shadow: 0 0 24px rgba(225, 48, 108, 0.2);
   }
 
-  /* App cards */
+  /* —— App cards (col-span-6 = wide) —— */
   .app-card {
-    grid-column: span 3;
+    grid-column: span 6;
     display: flex;
     align-items: center;
-    gap: 22px;
-    padding: 24px;
-    text-decoration: none;
-    color: inherit;
-    min-height: 130px;
+    gap: 24px;
+    padding: 26px;
+    min-height: 144px;
   }
-  .app-card .icon {
-    width: 84px;
-    height: 84px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .app-card .app-icon {
+    width: 92px;
+    height: 92px;
+    border-radius: 22px;
     flex-shrink: 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  }
-  .app-card .icon-symbol {
-    font-size: 38px;
-    font-weight: 700;
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.15);
+    object-fit: cover;
   }
   .app-card .info {
     flex: 1;
     min-width: 0;
   }
+  .app-card .name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
   .app-card .app-name {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
-    letter-spacing: -0.4px;
-    margin-bottom: 4px;
+    letter-spacing: -0.6px;
+  }
+  .app-card .availability {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(45, 184, 138, 0.12);
+    color: var(--teal);
+    font-weight: 600;
+    border: 1px solid rgba(45, 184, 138, 0.25);
   }
   .app-card .tagline {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-sec);
-    line-height: 1.4;
-    margin-bottom: 10px;
+    line-height: 1.45;
+    margin-bottom: 12px;
+    max-width: 480px;
   }
   .app-card .meta {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
     font-size: 12px;
     color: var(--text-tert);
+    flex-wrap: wrap;
   }
-  .app-card .meta .dot {
+  .app-card .meta .mdot {
     width: 3px;
     height: 3px;
     border-radius: 50%;
     background: currentColor;
   }
   .app-card .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 10px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 12px 20px;
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
     color: var(--text);
     white-space: nowrap;
-    transition: all 0.25s ease;
+    transition: all 0.3s;
   }
-  .app-card:hover .cta {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.2);
+  .card.interactive:hover .cta {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.24);
+    gap: 8px;
   }
 
-  /* Klaro specifics */
+  /* Klaro accent */
   .app-card.klaro {
     background:
-      radial-gradient(circle at 0% 0%, rgba(139, 130, 232, 0.12), transparent 60%),
+      radial-gradient(ellipse at 0% 50%, rgba(139, 130, 232, 0.14) 0%, transparent 55%),
       var(--surface);
   }
-  .app-card.klaro .icon {
-    background: linear-gradient(135deg, #8b82e8 0%, #6f64d3 100%);
-  }
-  .app-card.klaro .icon-symbol { color: #fff; }
-
-  /* Gravity Sort specifics */
+  /* Gravity accent */
   .app-card.gravity {
     background:
-      radial-gradient(circle at 100% 100%, rgba(45, 184, 138, 0.12), transparent 60%),
+      radial-gradient(ellipse at 100% 50%, rgba(45, 184, 138, 0.14) 0%, transparent 55%),
       var(--surface);
   }
-  .app-card.gravity .icon {
-    background: linear-gradient(135deg, #2db88a 0%, #1a9670 100%);
-  }
-  .app-card.gravity .icon-symbol { color: #fff; }
 
-  /* Section labels */
-  .label {
-    grid-column: span 3;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-tert);
-    font-weight: 600;
-    padding: 16px 4px 0;
-  }
-
-  /* Footer */
+  /* —— Footer —— */
   .footer {
     text-align: center;
-    margin-top: 56px;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
     color: var(--text-tert);
     font-size: 12px;
     line-height: 1.6;
   }
+  .footer .footer-row { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
   .footer a {
     color: var(--text-sec);
     text-decoration: none;
-    margin: 0 6px;
-    transition: color 0.2s ease;
+    transition: color 0.2s;
   }
   .footer a:hover { color: var(--text); }
+  .footer .copy { color: var(--text-tert); font-size: 11px; }
 
+  /* —— Responsive —— */
   /* Tablet */
   @media (max-width: 900px) {
-    .container { padding: 32px 18px 48px; }
-    .bento { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .hero { grid-column: span 2; grid-row: auto; min-height: auto; padding: 28px 24px; }
-    .hero .name { font-size: 34px; }
-    .hero .avatar-wrap { width: 96px; height: 96px; }
-    .app-card { grid-column: span 2; }
-    .label { grid-column: span 2; }
-    .social { min-height: 64px; }
+    .container { padding: 40px 18px 56px; }
+    .bento { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .social-card { grid-column: span 1; min-height: 68px; }
+    .app-card { grid-column: span 2; padding: 22px; }
   }
 
   /* Mobile */
   @media (max-width: 560px) {
-    .container { padding: 24px 14px 40px; }
+    .container { padding: 32px 14px 48px; }
+    .hero-header { margin-bottom: 36px; }
+    .avatar { width: 110px; height: 110px; }
+    .avatar-block::before { inset: -20px; filter: blur(22px); }
+    .display-bio { font-size: 15px; }
+    .quick-actions { gap: 8px; }
+    .pill { padding: 7px 12px; font-size: 11px; }
+
     .bento { grid-template-columns: 1fr; gap: 10px; }
-    .hero { grid-column: span 1; padding: 28px 22px; }
-    .hero .name { font-size: 30px; }
-    .hero .bio { font-size: 14px; }
-    .app-card { grid-column: span 1; padding: 18px; gap: 14px; min-height: auto; }
-    .app-card .icon { width: 64px; height: 64px; }
-    .app-card .icon-symbol { font-size: 28px; }
-    .app-card .app-name { font-size: 18px; }
-    .app-card .tagline { font-size: 13px; }
-    .app-card .cta { padding: 8px 14px; font-size: 12px; }
-    .label { grid-column: span 1; }
+    .social-card { grid-column: span 1; }
+    .app-card { grid-column: span 1; flex-wrap: wrap; padding: 20px; gap: 16px; }
+    .app-card .app-icon { width: 64px; height: 64px; border-radius: 16px; }
+    .app-card .app-name { font-size: 19px; }
+    .app-card .tagline { font-size: 13.5px; }
+    .app-card .cta { padding: 10px 16px; font-size: 12px; }
     .card { padding: 18px 20px; border-radius: 20px; }
+    .section-title { margin: 32px 0 14px; }
   }
 
-  /* Respeta reduced-motion */
+  /* —— Reduced motion —— */
   @media (prefers-reduced-motion: reduce) {
-    .aurora .orb { animation: none; }
-    .hero .avatar-glow { animation: none; }
+    .aurora .orb,
+    .avatar-block::before,
+    .available-dot { animation: none; }
     * { transition-duration: 0.01ms !important; }
   }
 </style>
@@ -449,129 +559,155 @@
 </div>
 
 <main class="container">
+
+  <!-- HERO -->
+  <header class="hero-header">
+    <div class="avatar-block">
+      <img class="avatar" src="/avatar.png" alt="Burrnny" width="140" height="140" loading="eager">
+      <span class="available-dot" aria-label="Available"></span>
+    </div>
+    <h1 class="display-name">Burrnny</h1>
+    <p class="display-tag">
+      Indie iOS developer<span class="dot"></span>México<span class="dot"></span>@burrnny
+    </p>
+    <p class="display-bio">
+      Hago apps que entrenan la mente y juegos que entretienen un rato.<br>
+      Disponible para colabos y nuevos proyectos.
+    </p>
+    <div class="quick-actions">
+      <a class="pill" href="mailto:juanmanuelchio@gmail.com">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+        Contacto
+      </a>
+      <a class="pill" href="#apps">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
+        Mis apps
+      </a>
+      <a class="pill" href="#social">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+        Sígueme
+      </a>
+    </div>
+  </header>
+
+  <!-- APPS -->
+  <h2 id="apps" class="section-title">Apps</h2>
+
   <div class="bento">
-
-    <!-- Hero — Avatar + Bio -->
-    <section class="card hero">
-      <div class="avatar-wrap">
-        <div class="avatar-glow"></div>
-        <img class="avatar" src="/avatar.png" alt="Burrnny" loading="eager">
-      </div>
-      <h1 class="name">Burrnny</h1>
-      <p class="handle">@burrnny</p>
-      <p class="bio">Indie iOS developer. Hago apps que entrenan la mente y juegos que entretienen un rato. Desde México.</p>
-      <div class="badges">
-        <span class="badge">iOS</span>
-        <span class="badge">SwiftUI</span>
-        <span class="badge">Indie</span>
-        <span class="badge">🇲🇽</span>
-      </div>
-    </section>
-
-    <!-- Social cards (col derecha) -->
-    <a class="card interactive" href="https://www.twitch.tv/burrnny" target="_blank" rel="noopener">
-      <div class="social twitch">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
-        </div>
-        <div class="meta">
-          <span class="name">Twitch</span>
-          <span class="handle">burrnny</span>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-    </a>
-
-    <a class="card interactive" href="https://www.youtube.com/@Burrnny" target="_blank" rel="noopener">
-      <div class="social youtube">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </div>
-        <div class="meta">
-          <span class="name">YouTube</span>
-          <span class="handle">@Burrnny</span>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-    </a>
-
-    <a class="card interactive" href="https://www.tiktok.com/@burrnny" target="_blank" rel="noopener">
-      <div class="social tiktok">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.55a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.21Z"/></svg>
-        </div>
-        <div class="meta">
-          <span class="name">TikTok</span>
-          <span class="handle">@burrnny</span>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-    </a>
-
-    <a class="card interactive" href="https://www.instagram.com/elburrnny" target="_blank" rel="noopener">
-      <div class="social instagram">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-        </div>
-        <div class="meta">
-          <span class="name">Instagram</span>
-          <span class="handle">@elburrnny</span>
-        </div>
-        <span class="arrow">→</span>
-      </div>
-    </a>
-
-    <!-- Label apps -->
-    <div class="label">Apps</div>
-
     <!-- Klaro -->
     <a class="card interactive app-card klaro" href="https://apps.apple.com/app/klaro-app/id6766996270" target="_blank" rel="noopener">
-      <div class="icon">
-        <span class="icon-symbol">K</span>
-      </div>
+      <img class="app-icon" src="/klaro/icon.png" alt="Klaro icon" width="92" height="92" loading="lazy">
       <div class="info">
-        <div class="app-name">Klaro</div>
+        <div class="name-row">
+          <span class="app-name">Klaro</span>
+          <span class="availability">Disponible</span>
+        </div>
         <div class="tagline">Entrena tu mente cada día · 5 módulos cognitivos · 1 vs 1 en tiempo real</div>
         <div class="meta">
-          <span>Education</span>
-          <span class="dot"></span>
-          <span>iOS 17+</span>
-          <span class="dot"></span>
+          <span>Education</span><span class="mdot"></span>
+          <span>iOS 17+</span><span class="mdot"></span>
+          <span>2,300+ preguntas</span><span class="mdot"></span>
           <span>ES · EN</span>
         </div>
       </div>
-      <span class="cta">App Store ↗</span>
+      <span class="cta">App Store <span>→</span></span>
     </a>
 
     <!-- Gravity Sort -->
     <a class="card interactive app-card gravity" href="https://apps.apple.com/mx/app/gravity-sort/id6767609526" target="_blank" rel="noopener">
-      <div class="icon">
-        <span class="icon-symbol">G</span>
-      </div>
+      <img class="app-icon" src="/gravitysort/icon.png" alt="Gravity Sort icon" width="92" height="92" loading="lazy">
       <div class="info">
-        <div class="app-name">Gravity Sort</div>
-        <div class="tagline">Puzzle de gravedad · niveles, achievements y skins · juega un rato y relájate</div>
+        <div class="name-row">
+          <span class="app-name">Gravity Sort</span>
+          <span class="availability">Disponible</span>
+        </div>
+        <div class="tagline">Puzzle de gravedad · ordena líquidos por color · 11 mundos únicos</div>
         <div class="meta">
-          <span>Games</span>
-          <span class="dot"></span>
-          <span>iOS 17+</span>
-          <span class="dot"></span>
+          <span>Games · Puzzle</span><span class="mdot"></span>
+          <span>iOS 17+</span><span class="mdot"></span>
           <span>6 idiomas</span>
         </div>
       </div>
-      <span class="cta">App Store ↗</span>
+      <span class="cta">App Store <span>→</span></span>
     </a>
-
   </div>
 
+  <!-- SOCIAL -->
+  <h2 id="social" class="section-title">Conecta</h2>
+
+  <div class="bento">
+    <!-- Twitch -->
+    <a class="card interactive social-card twitch" href="https://www.twitch.tv/burrnny" target="_blank" rel="noopener">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+      </div>
+      <div class="meta">
+        <span class="platform">Twitch</span>
+        <span class="handle">twitch.tv/burrnny</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <!-- YouTube -->
+    <a class="card interactive social-card youtube" href="https://www.youtube.com/@Burrnny" target="_blank" rel="noopener">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </div>
+      <div class="meta">
+        <span class="platform">YouTube</span>
+        <span class="handle">@Burrnny</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <!-- TikTok -->
+    <a class="card interactive social-card tiktok" href="https://www.tiktok.com/@burrnny" target="_blank" rel="noopener">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.55a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.21Z"/></svg>
+      </div>
+      <div class="meta">
+        <span class="platform">TikTok</span>
+        <span class="handle">@burrnny</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <!-- Instagram -->
+    <a class="card interactive social-card instagram" href="https://www.instagram.com/elburrnny" target="_blank" rel="noopener">
+      <div class="icon-box">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </div>
+      <div class="meta">
+        <span class="platform">Instagram</span>
+        <span class="handle">@elburrnny</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
   <footer class="footer">
-    © 2026 Burrnny
-    <span style="margin: 0 4px; color: var(--text-tert);">·</span>
-    <a href="/klaro/privacy.html">Klaro privacy</a>
-    <span style="margin: 0 4px; color: var(--text-tert);">·</span>
-    <a href="/gravitysort/privacy.html">Gravity Sort privacy</a>
+    <div class="footer-row">
+      <a href="/klaro/privacy.html">Klaro · Privacy</a>
+      <a href="/gravitysort/privacy-es.md">Gravity Sort · Privacy</a>
+      <a href="mailto:juanmanuelchio@gmail.com">Contacto</a>
+    </div>
+    <div class="copy">© 2026 Burrnny · Hecho con ☕ en México</div>
   </footer>
 </main>
+
+<script>
+  // Spotlight follow cursor — light JS, only on hover-capable devices
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.card.interactive').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+  }
+</script>
 
 </body>
 </html>
