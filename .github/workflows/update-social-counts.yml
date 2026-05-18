@@ -50,39 +50,35 @@ jobs:
                   print(f"[fetch fail] {url}: {e}")
                   return None
 
-          # YouTube
+          # YouTube — la página tiene "text":"X.XX K suscriptores"
           yt = fetch("https://www.youtube.com/@Burrnny")
           if yt:
-              m = re.search(r'"subscriberCountText":\{"accessibility":\{"accessibilityData":\{"label":"([^"]+)"', yt)
+              # Pattern multi-language (es/en)
+              m = re.search(r'"content":"([\d.,]+\s*[KMB]?)\s*(?:suscriptores|subscribers|inscritos|abonn[eé]s)"', yt)
               if not m:
-                  m = re.search(r'"subscriberCountText":\{"simpleText":"([^"]+)"', yt)
+                  m = re.search(r'"accessibilityLabel":"([\d.,]+\s*(?:mil|million|K|M|thousand)?)\s*(?:suscriptores|subscribers|inscritos|abonn[eé]s)"', yt)
               if m:
-                  nm = re.search(r'([\d.,]+\s*[KMB]?)', m.group(1))
-                  if nm:
-                      data["youtube"] = nm.group(1).strip().replace(" ", "")
-                      print(f"[youtube] {data['youtube']}")
+                  raw = m.group(1).strip()
+                  # Normalize "X.XX K" → "X.XXK"
+                  data["youtube"] = re.sub(r'\s+', '', raw)
+                  print(f"[youtube] {data['youtube']}")
 
-          # Twitch
-          body = json.dumps({
-              "operationName": "ChannelShell",
-              "variables": {"login": "burrnny"},
-              "extensions": {"persistedQuery": {"version": 1,
-                  "sha256Hash": "580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}
-          }).encode()
+          # Twitch — GraphQL query simple, retorna followers totalCount
+          body = json.dumps({"query": "query{user(login:\"burrnny\"){followers{totalCount}}}"}).encode()
           req = urllib.request.Request("https://gql.twitch.tv/gql", data=body,
               headers={"User-Agent": UA, "Client-ID": "kimne78kx3ncx6brgo4mv6wki5h1ko",
                        "Content-Type": "application/json"})
           try:
               with urllib.request.urlopen(req, timeout=15, context=CTX) as r:
                   payload = json.loads(r.read())
-                  fc = payload.get("data", {}).get("userOrError", {}).get("followers", {}).get("totalCount")
+                  fc = payload.get("data", {}).get("user", {}).get("followers", {}).get("totalCount")
                   if fc is not None:
                       data["twitch"] = fmt_compact(fc)
                       print(f"[twitch] {data['twitch']}")
           except Exception as e:
               print(f"[twitch fail] {e}")
 
-          # TikTok
+          # TikTok — regex "followerCount":N
           tt = fetch("https://www.tiktok.com/@burrnny")
           if tt:
               m = re.search(r'"followerCount":(\d+)', tt)
@@ -90,7 +86,7 @@ jobs:
                   data["tiktok"] = fmt_compact(int(m.group(1)))
                   print(f"[tiktok] {data['tiktok']}")
 
-          # Instagram (frágil)
+          # Instagram — IG bloquea bots, casi siempre falla
           ig = fetch("https://www.instagram.com/elburrnny/")
           if ig:
               m = re.search(r'"edge_followed_by":\{"count":(\d+)\}', ig)
