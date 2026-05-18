@@ -86,13 +86,19 @@ jobs:
                   data["tiktok"] = fmt_compact(int(m.group(1)))
                   print(f"[tiktok] {data['tiktok']}")
 
-          # Instagram — IG bloquea bots, casi siempre falla
-          ig = fetch("https://www.instagram.com/elburrnny/")
-          if ig:
-              m = re.search(r'"edge_followed_by":\{"count":(\d+)\}', ig)
+          # Instagram — User-Agent de iPhone hace que IG sirva OG meta con counts
+          IG_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+          req = urllib.request.Request("https://www.instagram.com/elburrnny/",
+                                       headers={"User-Agent": IG_UA})
+          try:
+              with urllib.request.urlopen(req, timeout=15, context=CTX) as r:
+                  ig = r.read().decode("utf-8", errors="ignore")
+              m = re.search(r'content="([\d.,]+\s*[KMB]?)\s*Followers', ig)
               if m:
-                  data["instagram"] = fmt_compact(int(m.group(1)))
+                  data["instagram"] = m.group(1).strip().replace(" ", "")
                   print(f"[instagram] {data['instagram']}")
+          except Exception as e:
+              print(f"[instagram fail] {e}")
 
           data["lastUpdated"] = datetime.datetime.utcnow().isoformat() + "Z"
           with open(path, "w") as f:
