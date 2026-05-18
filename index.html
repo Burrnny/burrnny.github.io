@@ -18,19 +18,73 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Security headers (via meta — GitHub Pages no permite headers HTTP custom) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<!-- ━━━━━━━━━━━━━━ Security (meta — GitHub Pages no permite headers HTTP) ━━━━━━━━━━━━━━ -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()">
+<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
 
-<!-- Performance — preload avatar (LCP) + preconnect to App Store -->
+<!-- ━━━━━━━━━━━━━━ Performance: preload + preconnect ━━━━━━━━━━━━━━ -->
 <link rel="preload" as="image" href="/avatar.png" fetchpriority="high">
-<link rel="preconnect" href="https://apps.apple.com">
+<link rel="preload" as="fetch" href="/data/social-counts.json" crossorigin="anonymous">
+<link rel="preconnect" href="https://apps.apple.com" crossorigin>
 <link rel="dns-prefetch" href="https://apps.apple.com">
+<link rel="dns-prefetch" href="https://www.twitch.tv">
+<link rel="dns-prefetch" href="https://www.youtube.com">
+<link rel="dns-prefetch" href="https://www.tiktok.com">
+<link rel="dns-prefetch" href="https://www.instagram.com">
 
-<!-- Favicon -->
+<!-- ━━━━━━━━━━━━━━ PWA + favicons ━━━━━━━━━━━━━━ -->
 <link rel="icon" type="image/png" href="/avatar.png">
 <link rel="apple-touch-icon" href="/avatar.png">
+<link rel="manifest" href="/manifest.json">
+
+<!-- ━━━━━━━━━━━━━━ Structured data (Schema.org Person + Apps) ━━━━━━━━━━━━━━ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://burrnny.com/#person",
+      "name": "Burrnny",
+      "alternateName": "@burrnny",
+      "url": "https://burrnny.com",
+      "image": "https://burrnny.com/avatar.png",
+      "description": "Indie iOS developer · Creator · México",
+      "jobTitle": "Indie iOS Developer",
+      "knowsAbout": ["iOS", "SwiftUI", "Swift", "Game Development"],
+      "sameAs": [
+        "https://www.twitch.tv/burrnny",
+        "https://www.youtube.com/@Burrnny",
+        "https://www.tiktok.com/@burrnny",
+        "https://www.instagram.com/elburrnny"
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Klaro",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "iOS 17+",
+      "url": "https://apps.apple.com/app/id6766996270",
+      "image": "https://burrnny.com/klaro/icon.png",
+      "description": "Entrena tu mente cada día · 5 módulos cognitivos · 1 vs 1 en tiempo real",
+      "author": {"@id": "https://burrnny.com/#person"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Gravity Sort",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "iOS 17+",
+      "url": "https://apps.apple.com/app/id6767609526",
+      "image": "https://burrnny.com/gravitysort/icon.png",
+      "description": "Puzzle de gravedad · ordena líquidos por color · 11 mundos únicos",
+      "author": {"@id": "https://burrnny.com/#person"}
+    }
+  ]
+}
+</script>
 
 <style>
   :root {
@@ -53,6 +107,14 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  /* Focus visible — keyboard navigation friendly */
+  *:focus { outline: none; }
+  *:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  .card:focus-visible { outline-offset: 4px; }
   html { scroll-behavior: smooth; }
 
   html, body {
@@ -691,7 +753,7 @@
   <h2 id="apps" class="section-title reveal">Apps</h2>
 
   <div class="bento">
-    <a class="card interactive app-card klaro reveal" href="https://apps.apple.com/app/klaro-app/id6766996270" target="_blank" rel="noopener">
+    <a class="card interactive app-card klaro reveal" href="https://apps.apple.com/app/id6766996270" target="_blank" rel="noopener">
       <svg class="apple-mark" viewBox="0 0 24 24" fill="currentColor" aria-label="En App Store">
         <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
       </svg>
@@ -711,7 +773,7 @@
       </div>
     </a>
 
-    <a class="card interactive app-card gravity reveal" href="https://apps.apple.com/mx/app/gravity-sort/id6767609526" target="_blank" rel="noopener">
+    <a class="card interactive app-card gravity reveal" href="https://apps.apple.com/app/id6767609526" target="_blank" rel="noopener">
       <svg class="apple-mark" viewBox="0 0 24 24" fill="currentColor" aria-label="En App Store">
         <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
       </svg>

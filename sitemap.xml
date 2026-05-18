@@ -2,26 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://burrnny.com/</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://burrnny.com/klaro/privacy.html</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://burrnny.com/klaro/privacy-en.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://burrnny.com/klaro/support.html</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://burrnny.com/klaro/support.html</loc>
+    <loc>https://burrnny.com/klaro/support-en.html</loc>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://burrnny.com/gravitysort/privacy-es.md</loc>
+    <lastmod>2026-05-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
