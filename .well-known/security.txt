@@ -1,4 +1,4 @@
-Contact: mailto:juanmanuelchio@gmail.com
+Contact: https://www.instagram.com/elburrnny
 Preferred-Languages: es, en
 Canonical: https://burrnny.com/.well-known/security.txt
 Expires: 2027-12-31T23:59:59.000Z
