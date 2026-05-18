@@ -1,0 +1,117 @@
+name: Update social counts
+
+on:
+  schedule:
+    - cron: '13 */6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch counts (best effort)
+        run: |
+          mkdir -p data
+          python3 <<'PY'
+          import json, re, urllib.request, datetime, ssl
+
+          UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"
+          CTX = ssl.create_default_context()
+          path = "data/social-counts.json"
+
+          try:
+              with open(path) as f:
+                  data = json.load(f)
+          except Exception:
+              data = {"twitch": None, "youtube": None, "tiktok": None, "instagram": None}
+
+          def fmt_compact(n):
+              if n is None: return None
+              n = int(n)
+              if n >= 1_000_000:
+                  v = n / 1_000_000
+                  return f"{v:.1f}".rstrip("0").rstrip(".") + "M"
+              if n >= 1_000:
+                  v = n / 1_000
+                  return f"{v:.1f}".rstrip("0").rstrip(".") + "K"
+              return str(n)
+
+          def fetch(url, headers=None):
+              req = urllib.request.Request(url, headers={"User-Agent": UA, **(headers or {})})
+              try:
+                  with urllib.request.urlopen(req, timeout=15, context=CTX) as r:
+                      return r.read().decode("utf-8", errors="ignore")
+              except Exception as e:
+                  print(f"[fetch fail] {url}: {e}")
+                  return None
+
+          # YouTube
+          yt = fetch("https://www.youtube.com/@Burrnny")
+          if yt:
+              m = re.search(r'"subscriberCountText":\{"accessibility":\{"accessibilityData":\{"label":"([^"]+)"', yt)
+              if not m:
+                  m = re.search(r'"subscriberCountText":\{"simpleText":"([^"]+)"', yt)
+              if m:
+                  nm = re.search(r'([\d.,]+\s*[KMB]?)', m.group(1))
+                  if nm:
+                      data["youtube"] = nm.group(1).strip().replace(" ", "")
+                      print(f"[youtube] {data['youtube']}")
+
+          # Twitch
+          body = json.dumps({
+              "operationName": "ChannelShell",
+              "variables": {"login": "burrnny"},
+              "extensions": {"persistedQuery": {"version": 1,
+                  "sha256Hash": "580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe"}}
+          }).encode()
+          req = urllib.request.Request("https://gql.twitch.tv/gql", data=body,
+              headers={"User-Agent": UA, "Client-ID": "kimne78kx3ncx6brgo4mv6wki5h1ko",
+                       "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(req, timeout=15, context=CTX) as r:
+                  payload = json.loads(r.read())
+                  fc = payload.get("data", {}).get("userOrError", {}).get("followers", {}).get("totalCount")
+                  if fc is not None:
+                      data["twitch"] = fmt_compact(fc)
+                      print(f"[twitch] {data['twitch']}")
+          except Exception as e:
+              print(f"[twitch fail] {e}")
+
+          # TikTok
+          tt = fetch("https://www.tiktok.com/@burrnny")
+          if tt:
+              m = re.search(r'"followerCount":(\d+)', tt)
+              if m:
+                  data["tiktok"] = fmt_compact(int(m.group(1)))
+                  print(f"[tiktok] {data['tiktok']}")
+
+          # Instagram (frágil)
+          ig = fetch("https://www.instagram.com/elburrnny/")
+          if ig:
+              m = re.search(r'"edge_followed_by":\{"count":(\d+)\}', ig)
+              if m:
+                  data["instagram"] = fmt_compact(int(m.group(1)))
+                  print(f"[instagram] {data['instagram']}")
+
+          data["lastUpdated"] = datetime.datetime.utcnow().isoformat() + "Z"
+          with open(path, "w") as f:
+              json.dump(data, f, indent=2)
+          print(f"[done] {data}")
+          PY
+
+      - name: Commit if changed
+        run: |
+          git config user.name "social-counts-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet data/social-counts.json; then
+            echo "No changes."
+          else
+            git add data/social-counts.json
+            git commit -m "Update social counts [skip ci]"
+            git push
+          fi
