@@ -507,32 +507,18 @@
     border-radius: 50%;
     background: currentColor;
   }
-  .app-card .cta {
-    display: inline-flex;
-    align-items: center;
+  /* Badge oficial App Store (SVG de Apple) */
+  .app-card .app-badge {
     align-self: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.09);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    padding: 15px 26px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    white-space: nowrap;
-    transition: all 0.3s;
+    height: 47px;
+    width: auto;
     margin-left: 32px;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+    /* Apple guidelines: el badge en black es para fondos claros u oscuros igual */
   }
-  .card.interactive:hover .cta {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.28);
-    gap: 10px;
-  }
-  .app-card .cta .arr {
-    transition: transform 0.3s ease;
-  }
-  .card.interactive:hover .app-card .cta .arr {
-    transform: translateX(2px);
+  .card.interactive:hover .app-badge {
+    transform: scale(1.04);
   }
 
   .app-card.klaro {
@@ -589,15 +575,14 @@
       grid-template-columns: auto 1fr;
       grid-template-rows: auto auto;
       column-gap: 22px;
-      row-gap: 36px;
+      row-gap: 32px;
       align-items: start;
       padding: 32px 32px 34px;
     }
-    .app-card .cta {
+    .app-card .app-badge {
       grid-column: 1 / -1;
       margin-left: 0;
       justify-self: start;
-      margin-top: 0;
     }
   }
 
@@ -621,7 +606,7 @@
       grid-column: span 1;
       padding: 26px 22px 30px;
       column-gap: 20px;
-      row-gap: 40px;
+      row-gap: 36px;
     }
     .app-card .app-icon { width: 72px; height: 72px; border-radius: 18px; }
     .app-card .app-name { font-size: 21px; }
@@ -717,7 +702,7 @@
           <span>ES · EN</span>
         </div>
       </div>
-      <span class="cta">App Store <span class="arr">↗</span></span>
+      <img class="app-badge" src="/badges/app-store-es.svg" alt="Descárgalo en el App Store" width="140" height="47" loading="lazy">
     </a>
 
     <a class="card interactive app-card gravity reveal" href="https://apps.apple.com/mx/app/gravity-sort/id6767609526" target="_blank" rel="noopener">
@@ -734,7 +719,7 @@
           <span>6 idiomas</span>
         </div>
       </div>
-      <span class="cta">App Store <span class="arr">↗</span></span>
+      <img class="app-badge" src="/badges/app-store-es.svg" alt="Descárgalo en el App Store" width="140" height="47" loading="lazy">
     </a>
   </div>
 
