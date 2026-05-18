@@ -572,18 +572,14 @@
      meta info — siempre tiene su row con gap generoso. */
   @media (max-width: 760px) {
     .app-card {
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      column-gap: 22px;
-      row-gap: 32px;
-      align-items: start;
-      padding: 32px 32px 34px;
+      gap: 20px;
+      padding: 26px 26px;
     }
-    .app-card .app-badge {
-      grid-column: 1 / -1;
-      margin-left: 0;
-      justify-self: start;
-    }
+    .app-card .app-icon { width: 76px; height: 76px; border-radius: 18px; }
+    .app-card .app-badge { height: 40px; margin-left: 0; }
+    .app-card .app-name { font-size: 22px; }
+    .app-card .tagline { font-size: 14px; margin-bottom: 12px; }
+    .app-card .meta { font-size: 11px; }
   }
 
   /* Responsive — Mobile */
@@ -604,10 +600,17 @@
     .social-card { grid-column: span 1; }
     .app-card {
       grid-column: span 1;
-      padding: 26px 22px 30px;
-      column-gap: 20px;
-      row-gap: 36px;
+      padding: 22px 18px;
+      gap: 14px;
     }
+    .app-card .app-icon { width: 64px; height: 64px; border-radius: 16px; }
+    .app-card .app-badge { height: 36px; }
+    .app-card .app-name { font-size: 19px; }
+    .app-card .name-row { gap: 8px; margin-bottom: 6px; }
+    .app-card .tagline { font-size: 13px; margin-bottom: 10px; line-height: 1.45; }
+    .app-card .meta { font-size: 10.5px; gap: 8px; }
+    .app-card .meta .mdot { width: 2.5px; height: 2.5px; }
+    .app-card .availability { font-size: 9px; padding: 2px 7px; letter-spacing: 1.1px; }
     .app-card .app-icon { width: 72px; height: 72px; border-radius: 18px; }
     .app-card .app-name { font-size: 21px; }
     .app-card .tagline { font-size: 13.5px; }
