@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klaro · Privacy Policy</title>
+<style>
+  body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; background: #fafafa; }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 20px; margin-top: 32px; color: #444; }
+  .updated { color: #888; font-size: 13px; margin-bottom: 24px; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: #5b4ed8; }
+  .lang { float: right; font-size: 13px; }
+</style>
+</head>
+<body>
+<a class="lang" href="privacy.html">Español</a>
+<h1>Klaro Privacy Policy</h1>
+<p class="updated">Last updated: May 16, 2026 (v2.0)</p>
+
+<p>Klaro is an iOS app for training your mind with questions in math, common sense, memory, trivia, and vocabulary, and includes 1 vs 1 online multiplayer matches via room code. This policy explains what information the app collects and how it's used.</p>
+
+<h2>1. Information we do NOT collect</h2>
+<ul>
+  <li>We do not ask for an account, email, or name.</li>
+  <li>We do not collect your location.</li>
+  <li>We do not access your contacts, photos, microphone, or camera.</li>
+  <li>We do not sell or share your personal data with third parties.</li>
+</ul>
+
+<h2>2. Information stored locally on your iPhone</h2>
+<ul>
+  <li><strong>Game progress:</strong> level, XP, streak, correct/incorrect answers, unlocked achievements, Marathon and Daily Challenge personal bests. Stored in SwiftData and UserDefaults on your device.</li>
+  <li><strong>Preferences:</strong> language, sound, haptics, daily reminder time, active icon. Stored in UserDefaults.</li>
+  <li><strong>Anonymous identifier (UUID):</strong> generated on your device the first time you open the app, used only to tag your anonymous question reports. Not associated with your Apple ID or identity.</li>
+</ul>
+<p>All this information stays on your iPhone and is deleted when you uninstall the app.</p>
+
+<h2>3. Question reports (optional)</h2>
+<p>When you report a question as incorrect using the flag button, we send to the review server:</p>
+<ul>
+  <li>The question ID (e.g. <code>math_032</code>).</li>
+  <li>The selected reason (5 closed options).</li>
+  <li>Your anonymous installation identifier (UUID).</li>
+  <li>The language and app version.</li>
+  <li>Date and time of the report.</li>
+</ul>
+<p>This data is used solely to improve question quality. We do not share it with third parties.</p>
+
+<h2>4. In-App Purchases</h2>
+<p>Klaro offers optional purchases to remove ads (monthly or one-time). These are processed by Apple (App Store) and governed by Apple's privacy policy. Klaro does not receive or store your payment information.</p>
+
+<h2>5. Online multiplayer (PvP)</h2>
+<p>When you use "Play online" (1 vs 1 with room code), Klaro uses Firebase (Google) as backend to coordinate matches. When you create or join a room:</p>
+<ul>
+  <li><strong>Anonymous Firebase Auth identifier:</strong> on first PvP use, an anonymous UID (no email or real name) is generated and stored in your iPhone's Keychain. Used to identify you as "player A" or "player B" of the room for the duration of the match.</li>
+  <li><strong>Display name:</strong> the nickname you set in Settings (defaults to an auto-generated handle like "FastFox"). Letters and numbers only, max 12 chars, server-side filtered against offensive words. It's the only thing your opponent sees about you.</li>
+  <li><strong>Room data:</strong> 6-char code, chosen modules, language, average ELO rating, per-question answers (0-3 index + elapsed time), scores, and reactions (1 of 5 pre-approved emotes). Stored temporarily in Firebase Realtime Database while the room is active; deleted or expired afterward.</li>
+  <li><strong>No free-form chat:</strong> there's no way to send text messages to your opponent. Reactions are a closed set of 5 pre-approved emotes.</li>
+  <li><strong>App Check:</strong> Klaro uses Firebase App Check (Apple DeviceCheck/App Attest) to verify backend calls come from the legitimate app. This does NOT collect user info, only validates binary integrity.</li>
+</ul>
+<p>If you want to remove your anonymous Firebase identifier and associated data, use <em>Settings → Delete account</em> in the app. This deletes your anonymous UID from the server, any active rooms, rate-limit counters, and your local progress; the next app launch generates a completely new identifier.</p>
+
+<h2>6. iCloud sync</h2>
+<p>Klaro uses Apple's <em>NSUbiquitousKeyValueStore</em> (iCloud Key-Value Storage) to sync your progress across devices signed in with the same Apple ID. Synced data:</p>
+<ul>
+  <li>Current streak, longest streak, weekly activity dots, available streak freezes.</li>
+  <li>Level, XP, and ELO rating per module.</li>
+  <li>Unlocked achievements.</li>
+  <li>Onboarding flags (tutorial seen, notifications accepted, FitTest done).</li>
+</ul>
+<p>This sync uses Apple's native iCloud infrastructure; data is encrypted in transit to your iCloud and does not pass through Klaro servers. You can disable this sync from <em>iPhone Settings → your Apple ID → iCloud → Klaro</em>.</p>
+
+<h2>7. Advertising</h2>
+<p>The free version shows ads served by Google AdMob. When ads are active:</p>
+<ul>
+  <li>If you grant App Tracking Transparency permission, AdMob may use the iOS IDFA to show you more relevant ads.</li>
+  <li>If you decline, only contextual non-personalized ads are shown.</li>
+  <li>You can change this preference at any time in iOS Settings → Privacy → Tracking.</li>
+  <li>For EU users, additional consent will be requested via CMP (Google UMP) in compliance with GDPR.</li>
+</ul>
+<p>Google AdMob's privacy policy is available at <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>.</p>
+
+<h2>8. Notifications</h2>
+<p>If you enable the daily reminder, Klaro schedules a local notification on your iPhone at the chosen time. These are managed by iOS and not sent from a server.</p>
+
+<h2>9. Diagnostic data</h2>
+<p>Klaro uses <em>MetricKit</em>, Apple's built-in framework, to collect anonymous performance metrics (launch time, hangs, dropped frames, crashes). This data is stored locally and not sent to any Klaro server.</p>
+
+<h2>10. Your rights · GDPR / CCPA</h2>
+<p>Although Klaro doesn't collect PII (personally identifiable information) and your anonymous identifier isn't tied to your real identity, we want to give you full control:</p>
+<ul>
+  <li><strong>Right of erasure:</strong> use <em>Settings → Delete account</em> in the app to wipe your anonymous UID and associated data from the server.</li>
+  <li><strong>Right not to be tracked:</strong> decline the iOS ATT (App Tracking Transparency) permission to prevent AdMob from personalizing ads.</li>
+  <li><strong>Subscribe to Pro</strong> to remove ads entirely and stop sharing your IDFA with AdMob.</li>
+  <li>For any further data inquiries, contact us at the address below.</li>
+</ul>
+
+<h2>11. Minimum age</h2>
+<p>Klaro is rated for all audiences (4+). It does not collect personally identifiable information from minors or adults. The PvP system does NOT allow free-form chat — only pre-approved emotes — and matchmaking is via shared code (not random between strangers).</p>
+
+<h2>12. Changes to this policy</h2>
+<p>If we update this policy, we will publish the new version at this same URL with the update date at the top.</p>
+
+<h2>13. Contact</h2>
+<p>If you have questions about this privacy policy, write to <a href="mailto:juanmanuelchio12@gmail.com">juanmanuelchio12@gmail.com</a>.</p>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klaro · Política de Privacidad</title>
+<!-- Última revisión v2.0 — mayo 2026. Cambios: PvP online, iCloud sync, delete account. -->
+<style>
+  body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; background: #fafafa; }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 20px; margin-top: 32px; color: #444; }
+  .updated { color: #888; font-size: 13px; margin-bottom: 24px; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: #5b4ed8; }
+  .lang { float: right; font-size: 13px; }
+</style>
+</head>
+<body>
+<a class="lang" href="privacy-en.html">English</a>
+<h1>Política de Privacidad de Klaro</h1>
+<p class="updated">Última actualización: 16 de mayo de 2026 (v2.0)</p>
+
+<p>Klaro es una app iOS para entrenar la mente con preguntas de cálculo, sentido común, memoria, cultura general y vocabulario, e incluye partidas multijugador 1 vs 1 vía código de sala. Esta política explica qué información recolecta la app y cómo se usa.</p>
+
+<h2>1. Información que NO recolectamos</h2>
+<ul>
+  <li>No pedimos cuenta, correo electrónico ni nombre.</li>
+  <li>No recolectamos tu ubicación.</li>
+  <li>No accedemos a tus contactos, fotos, micrófono ni cámara.</li>
+  <li>No vendemos ni compartimos tus datos personales con terceros.</li>
+</ul>
+
+<h2>2. Información almacenada localmente en tu iPhone</h2>
+<ul>
+  <li><strong>Progreso del juego:</strong> nivel, XP, racha, respuestas correctas/incorrectas, logros desbloqueados, mejor marca de Maratón y Reto del Día. Se guarda en SwiftData y UserDefaults dentro de tu dispositivo.</li>
+  <li><strong>Preferencias:</strong> idioma, sonido, vibración, hora de recordatorio diario, ícono activo. Se guarda en UserDefaults.</li>
+  <li><strong>Identificador anónimo (UUID):</strong> generado en tu dispositivo la primera vez que abres la app, sólo para etiquetar tus reportes anónimos de preguntas. No se asocia a tu Apple ID ni a tu identidad.</li>
+</ul>
+<p>Toda esta información permanece en tu iPhone y se elimina cuando desinstalas la app.</p>
+
+<h2>3. Reportes de preguntas (opcional)</h2>
+<p>Cuando reportas una pregunta como incorrecta usando el botón de bandera, enviamos al servidor de revisión:</p>
+<ul>
+  <li>El identificador de la pregunta (ej. <code>math_032</code>).</li>
+  <li>La razón seleccionada (5 opciones cerradas).</li>
+  <li>Tu identificador anónimo de instalación (UUID).</li>
+  <li>El idioma y versión de la app.</li>
+  <li>Fecha y hora del reporte.</li>
+</ul>
+<p>Estos datos se usan únicamente para mejorar la calidad del banco de preguntas. No los compartimos con terceros.</p>
+
+<h2>4. Compras dentro de la app</h2>
+<p>Klaro ofrece compras opcionales para quitar los anuncios (mensual o pago único). Estas compras se procesan a través de Apple (App Store) y se rigen por la política de privacidad de Apple. Klaro no recibe ni almacena tu información de pago.</p>
+
+<h2>5. Multijugador online (PvP)</h2>
+<p>Al usar la modalidad "Jugar online" (1 vs 1 con código de sala), Klaro usa Firebase (de Google) como backend para coordinar las partidas. Cuando creas o te unes a una sala:</p>
+<ul>
+  <li><strong>Identificador anónimo de Firebase Auth:</strong> al primer uso de PvP se genera un UID anónimo (sin email ni nombre real) que se guarda en el Keychain de tu iPhone. Sirve para identificarte como "jugador A" o "jugador B" de la sala mientras dura la partida.</li>
+  <li><strong>Nombre para mostrar:</strong> el nickname que pones en Ajustes (por defecto un nombre auto-generado tipo "FastFox"). Sólo letras y números, máximo 12 caracteres, filtrado server-side contra palabras ofensivas. Es lo único que tu oponente ve de ti.</li>
+  <li><strong>Datos de la sala:</strong> código de 6 caracteres, módulos elegidos, idioma, calificación promedio (ELO), respuestas a cada pregunta (índice 0-3 + tiempo), puntaje, y reacciones (uno de 5 emotes pre-definidos). Estos datos viven temporalmente en Firebase Realtime Database mientras la sala está activa, y se borran o se expiran después.</li>
+  <li><strong>Sin chat libre:</strong> no hay forma de enviar mensajes de texto al oponente. Las reacciones son un conjunto cerrado de 5 emotes pre-aprobados.</li>
+  <li><strong>App Check:</strong> Klaro usa Firebase App Check (DeviceCheck/App Attest de Apple) para verificar que las llamadas al backend vienen de la app legítima. Esto NO recolecta información del usuario, sólo valida la integridad del binario.</li>
+</ul>
+<p>Si quieres eliminar tu identificador anónimo de Firebase y los datos asociados, puedes hacerlo desde <em>Ajustes → Eliminar cuenta</em> dentro de la app. Esta acción borra tu UID anónimo del servidor, cualquier sala activa, contadores de rate limit, y tu progreso local; el siguiente uso de la app genera un identificador completamente nuevo.</p>
+
+<h2>6. Sincronización con iCloud</h2>
+<p>Klaro usa <em>NSUbiquitousKeyValueStore</em> de Apple (iCloud Key-Value Storage) para sincronizar tu progreso entre dispositivos que tengan iniciada sesión con tu mismo Apple ID. Se sincroniza:</p>
+<ul>
+  <li>Racha actual, racha más larga, días de la semana con actividad y escudos disponibles.</li>
+  <li>Nivel, XP y rating ELO de cada módulo.</li>
+  <li>Logros desbloqueados.</li>
+  <li>Banderas de onboarding (tutorial visto, notificaciones aceptadas, FitTest hecho).</li>
+</ul>
+<p>Este sync usa la infraestructura nativa de iCloud de Apple; los datos viajan cifrados a tu iCloud y no pasan por servidores de Klaro. Puedes desactivar esta sincronización desde <em>Ajustes del iPhone → tu Apple ID → iCloud → Klaro</em>.</p>
+
+<h2>7. Anuncios</h2>
+<p>La versión gratuita muestra anuncios servidos por Google AdMob. Cuando los anuncios estén activos:</p>
+<ul>
+  <li>Si das permiso de seguimiento (App Tracking Transparency), AdMob puede usar el identificador IDFA de iOS para mostrarte anuncios más relevantes.</li>
+  <li>Si lo rechazas, sólo se mostrarán anuncios contextuales no personalizados.</li>
+  <li>Puedes cambiar esta preferencia en cualquier momento desde Ajustes de iOS → Privacidad → Seguimiento.</li>
+  <li>Para usuarios de la Unión Europea, se solicitará consentimiento adicional vía CMP (Google UMP) cumpliendo con GDPR.</li>
+</ul>
+<p>La política de privacidad de Google AdMob se puede consultar en <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>.</p>
+
+<h2>8. Notificaciones</h2>
+<p>Si activas el recordatorio diario, Klaro programa una notificación local en tu iPhone a la hora elegida. Estas notificaciones se gestionan por iOS y no se envían desde un servidor.</p>
+
+<h2>9. Datos de diagnóstico</h2>
+<p>Klaro usa <em>MetricKit</em>, el framework integrado de Apple, para recopilar métricas anónimas de rendimiento (tiempo de arranque, hangs, frames perdidos, crashes). Estas métricas se almacenan localmente y no se envían a ningún servidor de Klaro.</p>
+
+<h2>10. Tus derechos · GDPR / CCPA</h2>
+<p>Aunque Klaro no recolecta PII (información personal identificable) y tu identificador anónimo no se asocia a tu identidad real, queremos darte control completo:</p>
+<ul>
+  <li><strong>Derecho de eliminación:</strong> usa el botón <em>Ajustes → Eliminar cuenta</em> dentro de la app para borrar tu UID anónimo y datos asociados del servidor.</li>
+  <li><strong>Derecho de no-tracking:</strong> rechaza el permiso de ATT (App Tracking Transparency) en iOS para evitar que AdMob te muestre anuncios personalizados.</li>
+  <li><strong>Suscríbete con Pro</strong> para no ver anuncios y por tanto no compartir tu IDFA con AdMob.</li>
+  <li>Si tienes consultas adicionales sobre tus datos, escribe al contacto al final de este documento.</li>
+</ul>
+
+<h2>11. Edad mínima</h2>
+<p>Klaro está clasificada para todos los públicos (4+). No recolecta información personal identificable de menores ni de adultos. El sistema PvP no permite chat libre — sólo emotes pre-aprobados — y el matchmaking es por código compartido (no aleatorio entre desconocidos).</p>
+
+<h2>12. Cambios a esta política</h2>
+<p>Si actualizamos esta política, publicaremos la nueva versión en esta misma URL con la fecha de actualización al inicio.</p>
+
+<h2>13. Contacto</h2>
+<p>Si tienes preguntas sobre esta política de privacidad, escribe a <a href="mailto:juanmanuelchio12@gmail.com">juanmanuelchio12@gmail.com</a>.</p>
+
+</body>
+</html>
