@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#26262C">
+<title>Klaro · Te retan a un duelo 1 vs 1</title>
+
+<!-- ━━━━━━━━━━━━ OG tags ricos para rich previews ━━━━━━━━━━━━ -->
+<!-- Esta página vive en /r/ y devuelve HTTP 200 OK (no 404 como 404.html).
+     Los scrapers de WhatsApp/Telegram/FB/Twitter ahora SÍ leen los OG tags
+     y generan rich preview. Mensaje vendedor + branding consistente. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="⚔️ Te retan a un duelo · 1 vs 1">
+<meta property="og:description" content="Te invitaron a una partida de Klaro · 1 vs 1. Toca para entrar a la sala.">
+<meta property="og:image" content="https://burrnny.com/klaro/icon.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:site_name" content="Klaro">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="⚔️ Te retan a un duelo · 1 vs 1">
+<meta name="twitter:description" content="Te invitaron a una partida de Klaro · 1 vs 1. Toca para entrar.">
+<meta name="twitter:image" content="https://burrnny.com/klaro/icon.png">
+<style>
+  :root {
+    --bg: #26262C;
+    --surface: #2E2E36;
+    --elevated: #36363F;
+    --border: #3C3C46;
+    --text: #F0F0F4;
+    --textSec: #9090A0;
+    --purple: #8B82E8;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+    text-align: center;
+  }
+  .brand {
+    font-size: 18px;
+    color: var(--purple);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .code-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 16px;
+    margin: 28px 0 24px;
+  }
+  .code-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--textSec);
+    margin-bottom: 10px;
+  }
+  .code {
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: var(--purple);
+    color: var(--bg);
+  }
+  .btn-secondary {
+    background: var(--elevated);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .hint {
+    color: var(--textSec);
+    font-size: 14px;
+    margin: 20px 0 0;
+    line-height: 1.5;
+  }
+  .lang-en { display: none; }
+  html[lang="en"] .lang-es { display: none; }
+  html[lang="en"] .lang-en { display: inline; }
+  .footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--textSec);
+  }
+  .footer a { color: var(--textSec); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="brand">KLARO</div>
+  <h1>
+    <span class="lang-es">Te invitaron a una sala</span>
+    <span class="lang-en">You've been invited</span>
+  </h1>
+
+  <div class="code-card" id="codeCard" style="display:none">
+    <div class="code-label">
+      <span class="lang-es">Código de sala</span>
+      <span class="lang-en">Room code</span>
+    </div>
+    <div class="code" id="codeValue">——————</div>
+  </div>
+
+  <div id="appButtons">
+    <a id="openAppBtn" class="btn btn-primary" href="#">
+      <span class="lang-es">Abrir en Klaro</span>
+      <span class="lang-en">Open in Klaro</span>
+    </a>
+    <a class="btn btn-secondary"
+       href="https://apps.apple.com/app/id6766996270">
+      <span class="lang-es">Descargar Klaro · App Store</span>
+      <span class="lang-en">Download Klaro · App Store</span>
+    </a>
+  </div>
+
+  <p class="hint" id="iosHint" style="display:none">
+    <span class="lang-es">Si ya tienes la app, abrirá automáticamente. Si no, descárgala primero e ingresa el código manualmente.</span>
+    <span class="lang-en">If you have the app, it will open automatically. Otherwise, download it and enter the code manually.</span>
+  </p>
+  <p class="hint" id="desktopHint" style="display:none">
+    <span class="lang-es">Klaro está disponible para iPhone. Abre este link desde tu iPhone o anota el código y entra desde la app.</span>
+    <span class="lang-en">Klaro is iPhone-only. Open this link from your iPhone or note down the code and enter it from the app.</span>
+  </p>
+
+  <div class="footer">
+    Klaro · <a href="/klaro/privacy.html">Privacy</a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Detectar idioma del navegador
+    var lang = (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+    document.documentElement.lang = lang;
+
+    // El code viene en ?c=CODE (formato TF69+).
+    var search = new URLSearchParams(window.location.search);
+    var code = (search.get('c') || search.get('code') || '').toUpperCase();
+    // Validar que sea código razonable (4-12 chars alfanuméricos).
+    if (!/^[A-Z0-9]{4,12}$/.test(code)) {
+      code = null;
+    }
+
+    if (!code) {
+      document.getElementById('openAppBtn').style.display = 'none';
+      document.querySelector('h1').innerHTML = '<span class="lang-es">Código no válido</span><span class="lang-en">Invalid code</span>';
+      return;
+    }
+
+    // Mostrar el código
+    document.getElementById('codeCard').style.display = 'block';
+    document.getElementById('codeValue').textContent = code;
+
+    // Universal link de Klaro. iOS con app instalada intercepta vía AASA.
+    // Sin app, el browser navega y se queda en esta página (loop benigno).
+    var universalUrl = window.location.origin + '/r/?c=' + code;
+    document.getElementById('openAppBtn').href = universalUrl;
+
+    // Detectar plataforma
+    var ua = navigator.userAgent;
+    var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isIOS) {
+      document.getElementById('iosHint').style.display = 'block';
+    } else {
+      document.getElementById('desktopHint').style.display = 'block';
+      document.getElementById('openAppBtn').style.display = 'none';
+    }
+  })();
+</script>
+</body>
+</html>
