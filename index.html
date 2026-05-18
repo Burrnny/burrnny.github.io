@@ -388,8 +388,19 @@
   }
   .stat {
     text-align: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 4px 10px;
+    border-radius: 10px;
+    transition: transform 0.25s ease, background 0.25s ease;
+    display: block;
+  }
+  .stat:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
   }
   .stat .num {
+    display: block;
     font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.5px;
@@ -408,6 +419,7 @@
     margin-top: 4px;
     font-weight: 600;
   }
+  .stat:hover .lbl { color: var(--text-sec); }
 
   /* Social card */
   .social-card {
@@ -689,7 +701,7 @@
     </p>
     <p class="display-bio reveal">
       Hago apps, contenido y streams.<br>
-      iOS dev de día, streamer de noche. Disponible para colabos.
+      iOS dev de día, streamer de noche. Disponible para colabs.
     </p>
     <div class="quick-actions reveal">
       <a class="pill" href="https://www.instagram.com/elburrnny" target="_blank" rel="noopener">
@@ -707,12 +719,24 @@
     </div>
   </header>
 
-  <!-- Stats strip -->
+  <!-- Stats strip — redes sociales (followers actuales) -->
   <div class="stats-strip reveal">
-    <div class="stat"><span class="num">2</span><span class="lbl">Apps</span></div>
-    <div class="stat"><span class="num">2.3K+</span><span class="lbl">Preguntas</span></div>
-    <div class="stat"><span class="num">6</span><span class="lbl">Idiomas</span></div>
-    <div class="stat"><span class="num">iOS 17+</span><span class="lbl">Plataforma</span></div>
+    <a class="stat" href="https://www.twitch.tv/burrnny" target="_blank" rel="noopener">
+      <span class="num" data-platform="twitch">—</span>
+      <span class="lbl">Twitch</span>
+    </a>
+    <a class="stat" href="https://www.youtube.com/@Burrnny" target="_blank" rel="noopener">
+      <span class="num" data-platform="youtube">—</span>
+      <span class="lbl">YouTube</span>
+    </a>
+    <a class="stat" href="https://www.tiktok.com/@burrnny" target="_blank" rel="noopener">
+      <span class="num" data-platform="tiktok">—</span>
+      <span class="lbl">TikTok</span>
+    </a>
+    <a class="stat" href="https://www.instagram.com/elburrnny" target="_blank" rel="noopener">
+      <span class="num" data-platform="instagram">—</span>
+      <span class="lbl">Instagram</span>
+    </a>
   </div>
 
   <!-- APPS -->
