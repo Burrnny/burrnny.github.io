@@ -165,7 +165,9 @@
   }
 
   .greeting {
-    display: inline-block;
+    display: block;
+    width: max-content;
+    margin: 0 auto 22px;
     font-size: 13px;
     color: var(--text-sec);
     font-weight: 500;
@@ -174,7 +176,6 @@
     border-radius: 999px;
     background: var(--surface-hi);
     border: 1px solid var(--border);
-    margin-bottom: 22px;
     backdrop-filter: blur(12px);
   }
   .greeting .wave {
@@ -190,8 +191,9 @@
 
   .avatar-block {
     position: relative;
-    display: inline-block;
-    margin-bottom: 28px;
+    display: block;
+    width: max-content;
+    margin: 0 auto 28px;
   }
   .avatar-block::before {
     content: "";
@@ -495,8 +497,8 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 24px;
-    padding: 28px;
+    gap: 28px;
+    padding: 28px 32px;
     min-height: 152px;
   }
   .app-card .app-icon {
@@ -570,7 +572,7 @@
     color: var(--text);
     white-space: nowrap;
     transition: all 0.3s;
-    margin-left: 16px;
+    margin-left: 24px;
   }
   .card.interactive:hover .cta {
     background: rgba(255, 255, 255, 0.18);
@@ -882,6 +884,23 @@
         });
       });
     }
+
+    // 4) Hidratar counts de redes desde data/social-counts.json
+    //    El JSON lo actualiza GitHub Actions cada 6h con scraping.
+    //    Si fetch falla o el valor es null, queda el placeholder "—".
+    fetch('/data/social-counts.json', { cache: 'no-cache' })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data) return;
+        document.querySelectorAll('.stat .num[data-platform]').forEach(el => {
+          const platform = el.dataset.platform;
+          const v = data[platform];
+          if (v !== null && v !== undefined && v !== '') {
+            el.textContent = v;
+          }
+        });
+      })
+      .catch(() => { /* silencioso — placeholders quedan */ });
   })();
 </script>
 
