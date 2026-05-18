@@ -586,8 +586,29 @@
     .container { padding: 40px 18px 56px; }
     .bento { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .social-card { grid-column: span 1; min-height: 72px; }
-    .app-card { grid-column: span 2; padding: 24px; }
+    .app-card { grid-column: span 2; padding: 28px 28px 32px; }
     .stats-strip { gap: 22px; padding: 14px 18px; }
+  }
+
+  /* —— App card: layout 2-row (icon|info en row 1, CTA en row 2) ——
+     Se activa en cualquier viewport donde el card es menor a ~760px (tablet
+     vertical, foldable, mobile). Garantiza que el CTA NUNCA queda pegado al
+     meta info — siempre tiene su row con gap generoso. */
+  @media (max-width: 760px) {
+    .app-card {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 22px;
+      row-gap: 30px;
+      align-items: start;
+      padding: 28px 28px 30px;
+    }
+    .app-card .cta {
+      grid-column: 1 / -1;
+      margin-left: 0;
+      justify-self: start;
+      margin-top: 0;
+    }
   }
 
   /* Responsive — Mobile */
@@ -608,17 +629,9 @@
     .social-card { grid-column: span 1; }
     .app-card {
       grid-column: span 1;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      padding: 24px 22px;
+      padding: 26px 22px 28px;
       column-gap: 16px;
-      row-gap: 22px;
-    }
-    .app-card .cta {
-      grid-column: 1 / -1;
-      margin-left: 0;
-      justify-self: start;
-      margin-top: 2px;
+      row-gap: 28px;
     }
     .app-card .app-icon { width: 72px; height: 72px; border-radius: 18px; }
     .app-card .app-name { font-size: 21px; }
