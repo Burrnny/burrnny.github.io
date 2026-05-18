@@ -164,31 +164,6 @@
     position: relative;
   }
 
-  .greeting {
-    display: block;
-    width: max-content;
-    margin: 0 auto 22px;
-    font-size: 13px;
-    color: var(--text-sec);
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    padding: 7px 14px;
-    border-radius: 999px;
-    background: var(--surface-hi);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-  }
-  .greeting .wave {
-    display: inline-block;
-    transform-origin: 70% 70%;
-    animation: wave 2.5s ease-in-out infinite;
-  }
-  @keyframes wave {
-    0%, 60%, 100% { transform: rotate(0deg); }
-    10%, 30%      { transform: rotate(14deg); }
-    20%           { transform: rotate(-8deg); }
-  }
-
   .avatar-block {
     position: relative;
     display: block;
@@ -218,23 +193,6 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
     display: block;
   }
-  .available-dot {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--teal);
-    border: 3px solid var(--bg);
-    box-shadow: 0 0 12px rgba(45, 184, 138, 0.6);
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(45, 184, 138, 0.6); }
-    50%      { transform: scale(1.12); box-shadow: 0 0 16px rgba(45, 184, 138, 0.85); }
-  }
-
   .display-name {
     font-size: clamp(56px, 9vw, 92px);
     font-weight: 800;
@@ -672,9 +630,7 @@
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .aurora .orb,
-    .avatar-block::before,
-    .available-dot,
-    .greeting .wave { animation: none; }
+    .avatar-block::before { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
     * { transition-duration: 0.01ms !important; }
   }
@@ -692,13 +648,8 @@
 
   <!-- HERO -->
   <header class="hero-header">
-    <div class="greeting reveal" id="greeting">
-      <span class="wave">👋</span>
-      <span id="greeting-text">Hola, soy</span>
-    </div>
     <div class="avatar-block reveal">
       <img class="avatar" src="/avatar.png" alt="Burrnny" width="140" height="140" fetchpriority="high">
-      <span class="available-dot" aria-label="Available for projects"></span>
     </div>
     <h1 class="display-name reveal">Burrnny</h1>
     <p class="display-tag reveal">
@@ -794,7 +745,6 @@
       </div>
       <div class="meta">
         <span class="platform">Twitch</span>
-        <span class="handle">twitch.tv/burrnny</span>
       </div>
       <span class="arrow">→</span>
     </a>
@@ -805,7 +755,6 @@
       </div>
       <div class="meta">
         <span class="platform">YouTube</span>
-        <span class="handle">@Burrnny</span>
       </div>
       <span class="arrow">→</span>
     </a>
@@ -816,7 +765,6 @@
       </div>
       <div class="meta">
         <span class="platform">TikTok</span>
-        <span class="handle">@burrnny</span>
       </div>
       <span class="arrow">→</span>
     </a>
@@ -827,7 +775,6 @@
       </div>
       <div class="meta">
         <span class="platform">Instagram</span>
-        <span class="handle">@elburrnny</span>
       </div>
       <span class="arrow">→</span>
     </a>
@@ -844,17 +791,7 @@
 
 <script defer>
   (function() {
-    // 1) Time-aware greeting
-    const h = new Date().getHours();
-    let greet;
-    if (h < 6) greet = "Trasnochando, soy";
-    else if (h < 12) greet = "Buenos días, soy";
-    else if (h < 19) greet = "Buenas tardes, soy";
-    else greet = "Buenas noches, soy";
-    const el = document.getElementById("greeting-text");
-    if (el) el.textContent = greet;
-
-    // 2) Scroll reveal via IntersectionObserver
+    // 1) Scroll reveal via IntersectionObserver
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -868,7 +805,7 @@
       io.observe(el);
     });
 
-    // 3) Spotlight follow cursor + subtle 3D tilt (hover devices only)
+    // 2) Spotlight follow cursor + subtle 3D tilt (hover devices only)
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       document.querySelectorAll('.card.interactive').forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -888,7 +825,7 @@
       });
     }
 
-    // 4) Hidratar counts de redes desde data/social-counts.json
+    // 3) Hidratar counts de redes desde data/social-counts.json
     //    El JSON lo actualiza GitHub Actions cada 6h con scraping.
     //    Si fetch falla o el valor es null, queda el placeholder "—".
     fetch('/data/social-counts.json', { cache: 'no-cache' })
