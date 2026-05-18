@@ -1,0 +1,39 @@
+{
+  "name": "Burrnny",
+  "short_name": "Burrnny",
+  "description": "Indie iOS developer · Klaro · Gravity Sort",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08080c",
+  "theme_color": "#08080c",
+  "lang": "es",
+  "categories": ["personal", "developer"],
+  "icons": [
+    {
+      "src": "/avatar.png",
+      "sizes": "280x280",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/avatar.png",
+      "sizes": "280x280",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Klaro · App Store",
+      "url": "https://apps.apple.com/app/id6766996270",
+      "description": "Abre Klaro en App Store"
+    },
+    {
+      "name": "Gravity Sort · App Store",
+      "url": "https://apps.apple.com/app/id6767609526",
+      "description": "Abre Gravity Sort en App Store"
+    }
+  ]
+}
