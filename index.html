@@ -305,7 +305,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 48px 0 18px;
+    margin: 56px 0 24px;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2.5px;
@@ -498,8 +498,8 @@
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 28px;
-    padding: 28px 32px;
-    min-height: 152px;
+    padding: 36px 36px;
+    min-height: 168px;
   }
   .app-card .app-icon {
     width: 96px;
@@ -562,10 +562,11 @@
   .app-card .cta {
     display: inline-flex;
     align-items: center;
+    align-self: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.09);
     border: 1px solid rgba(255, 255, 255, 0.16);
-    padding: 13px 22px;
+    padding: 14px 24px;
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
@@ -651,13 +652,15 @@
       grid-column: span 1;
       grid-template-columns: auto 1fr;
       grid-template-rows: auto auto;
-      padding: 22px;
-      gap: 16px;
+      padding: 24px 22px;
+      column-gap: 16px;
+      row-gap: 22px;
     }
     .app-card .cta {
       grid-column: 1 / -1;
       margin-left: 0;
       justify-self: start;
+      margin-top: 2px;
     }
     .app-card .app-icon { width: 72px; height: 72px; border-radius: 18px; }
     .app-card .app-name { font-size: 21px; }
