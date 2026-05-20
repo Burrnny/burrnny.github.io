@@ -2,57 +2,49 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>burrnny · Stream Promo Overlay</title>
+<title>burrnny · Stream Promo Banner</title>
 <!--
-  Overlay HTML para usar como Browser Source en OBS / Streamlabs.
-  Rota cada ~9 segundos entre Klaro y Gravity Sort con animación slide + fade.
+  Banner HTML para Browser Source en OBS / Streamlabs.
+  Rota cada ~9 segundos entre Klaro y Gravity Sort.
+  Solo 3 elementos grandes: icon + name + Apple logo. Sin texto extra.
 
   Setup en OBS:
-    1. Sources → + → Browser
-    2. URL: https://burrnny.com/stream/promo.html
-    3. Width: 540, Height: 170
-    4. ✅ Shutdown source when not visible (optimiza CPU)
-    5. ✅ Refresh browser when scene becomes active
-
-  Posición sugerida: debajo del cam, esquina inferior izquierda o derecha.
-  Background es transparente — el overlay flota encima del juego.
-
-  Para customizar duración/orden: ver ROTATION_SECONDS abajo y el array
-  `slides`. Cada slide tiene icon, name, tagline, accent (color brand) y
-  storeUrl (no se abre desde OBS pero queda en el código por si lo usas en
-  otro contexto).
+    Sources → + → Browser
+    URL: https://burrnny.com/stream/promo.html
+    Width: 600 · Height: 140
 -->
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
-    width: 540px;
-    height: 170px;
+    width: 600px;
+    height: 140px;
     background: transparent;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   .stage {
     position: relative;
-    width: 540px;
-    height: 170px;
+    width: 600px;
+    height: 140px;
   }
   .slide {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 18px;
-    padding: 16px 22px;
-    border-radius: 24px;
+    padding: 0 28px 0 18px;
+    border-radius: 28px;
     background:
-      linear-gradient(135deg, rgba(38, 38, 44, 0.92), rgba(26, 26, 30, 0.96));
+      linear-gradient(135deg, rgba(38, 38, 44, 0.94), rgba(22, 22, 26, 0.96));
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      0 12px 40px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
     opacity: 0;
     transform: translateX(40px);
     transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
@@ -63,37 +55,29 @@
     opacity: 1;
     transform: translateX(0);
   }
-  /* Glow accent: barra vertical a la izquierda + halo radial sutil */
-  .slide::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 14%; bottom: 14%;
-    width: 4px;
-    border-radius: 0 4px 4px 0;
-    background: var(--accent, #8B82E8);
-    box-shadow: 0 0 16px var(--accent, #8B82E8);
-  }
+  /* Halo radial sutil con el accent color de cada app */
   .slide::after {
     content: "";
     position: absolute;
-    right: -60px; top: -60px;
-    width: 220px; height: 220px;
+    right: -80px; top: -80px;
+    width: 280px; height: 280px;
     border-radius: 50%;
     background: radial-gradient(circle, var(--accent, #8B82E8) 0%, transparent 60%);
-    opacity: 0.10;
+    opacity: 0.13;
     pointer-events: none;
   }
 
+  /* Bloque izquierdo: icono grande con halo glow */
   .icon-wrap {
     flex-shrink: 0;
-    width: 92px;
-    height: 92px;
-    border-radius: 22px;
+    width: 108px;
+    height: 108px;
+    border-radius: 26px;
     overflow: hidden;
     position: relative;
     box-shadow:
-      0 6px 20px rgba(0, 0, 0, 0.45),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      0 8px 24px rgba(0, 0, 0, 0.55),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
   .icon-wrap img {
     width: 100%;
@@ -101,80 +85,40 @@
     object-fit: cover;
     display: block;
   }
-  /* Halo glow alrededor del icono que respira con el accent */
   .icon-glow {
     position: absolute;
-    inset: -6px;
-    border-radius: 26px;
-    box-shadow: 0 0 24px var(--accent, #8B82E8);
-    opacity: 0.45;
+    inset: -8px;
+    border-radius: 32px;
+    box-shadow: 0 0 32px var(--accent, #8B82E8);
+    opacity: 0.55;
     pointer-events: none;
     animation: pulse 3s ease-in-out infinite;
   }
   @keyframes pulse {
-    0%, 100% { opacity: 0.35; }
-    50%      { opacity: 0.65; }
+    0%, 100% { opacity: 0.40; }
+    50%      { opacity: 0.75; }
   }
 
-  .text {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-  }
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--accent, #8B82E8);
-    opacity: 0.9;
-  }
+  /* Nombre — el elemento dominante centralmente */
   .name {
-    font-size: 28px;
+    flex: 1;
+    text-align: center;
+    font-size: 44px;
     font-weight: 800;
+    letter-spacing: -1.5px;
     color: #F0F0F4;
-    letter-spacing: -0.5px;
     line-height: 1;
-  }
-  .tagline {
-    font-size: 13px;
-    font-weight: 500;
-    color: #9090A0;
-    line-height: 1.35;
-    margin-top: 2px;
-  }
-  .store-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 6px;
-    padding: 5px 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    font-size: 11px;
-    font-weight: 600;
-    color: #C8C8D2;
-    width: fit-content;
-  }
-  .store-badge svg {
-    width: 12px; height: 12px;
-    fill: #C8C8D2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
 
-  /* Burrnny brand pill en la esquina */
-  .brand-pill {
-    position: absolute;
-    bottom: 10px;
-    right: 14px;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    color: #66666F;
-    text-transform: uppercase;
+  /* Apple logo a la derecha, grande, en color accent */
+  .apple-mark {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    color: var(--accent, #8B82E8);
+    filter: drop-shadow(0 0 12px var(--accent, #8B82E8));
+    opacity: 0.95;
   }
 </style>
 </head>
@@ -189,29 +133,25 @@
 
   const slides = [
     {
-      eyebrow: "App del creador",
       name: "Klaro",
-      tagline: "Entrena tu mente · 5 módulos · duelos 1 vs 1",
       icon: "https://burrnny.com/klaro/icon.png",
-      accent: "#8B82E8",        // purple Klaro
-      storeUrl: "https://apps.apple.com/app/id6766996270"
+      accent: "#8B82E8"          // purple Klaro
     },
     {
-      eyebrow: "App del creador",
       name: "Gravity Sort",
-      tagline: "Puzzle de gravedad · 11 mundos · ordena líquidos",
       icon: "https://burrnny.com/gravitysort/icon.png",
-      accent: "#2DB88A",        // teal Gravity
-      storeUrl: "https://apps.apple.com/app/id6767609526"
+      accent: "#2DB88A"          // teal Gravity
     }
   ];
+
+  // SVG path de la manzana Apple — el mismo glyph que aparece en App Store.
+  const APPLE_SVG = '<svg class="apple-mark" viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>';
 
   const stage = document.getElementById('stage');
   let currentIndex = 0;
 
-  // Pre-crear los nodos para ambas slides — más eficiente que recrear cada
-  // rotación. La activa tiene .active, las demás se quedan ocultas.
-  const slideNodes = slides.map((slide, i) => {
+  // Pre-crear los nodos de slides — más eficiente que recrear cada rotación.
+  const slideNodes = slides.map((slide) => {
     const el = document.createElement('div');
     el.className = 'slide';
     el.style.setProperty('--accent', slide.accent);
@@ -220,15 +160,8 @@
         <div class="icon-glow"></div>
         <img src="${slide.icon}" alt="${slide.name}">
       </div>
-      <div class="text">
-        <div class="eyebrow">${slide.eyebrow}</div>
-        <div class="name">${slide.name}</div>
-        <div class="tagline">${slide.tagline}</div>
-        <div class="store-badge">
-          <svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-          <span>Descárgala · App Store</span>
-        </div>
-      </div>
+      <div class="name">${slide.name}</div>
+      ${APPLE_SVG}
     `;
     stage.appendChild(el);
     return el;
@@ -240,13 +173,6 @@
     });
   }
 
-  // Burrnny brand pill (fixed, sin animación)
-  const pill = document.createElement('div');
-  pill.className = 'brand-pill';
-  pill.textContent = 'BURRNNY.COM';
-  stage.appendChild(pill);
-
-  // Arranque
   showSlide(0);
   setInterval(() => {
     currentIndex = (currentIndex + 1) % slides.length;
