@@ -8,7 +8,9 @@
 
 <!-- ━━━━━━━━━━━━ OG tags ricos para rich previews ━━━━━━━━━━━━ -->
 <!-- Cuando alguien comparte el link por WhatsApp/Telegram/etc, estos tags
-     son lo que el receptor ve como rich preview. Mensaje vendedor + branding -->
+     son lo que el receptor ve como rich preview. Mensaje vendedor + branding.
+     Los crawlers (WhatsApp, Telegram, etc) NO ejecutan JS, así que estos OG
+     tags son estáticos. Default = Klaro 1v1 (el caso más común de share). -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="⚔️ Te retan a un duelo · 1 vs 1">
 <meta property="og:description" content="Te invitaron a una partida de Klaro · 1 vs 1. Toca para entrar a la sala.">
@@ -31,7 +33,7 @@
     --border: #3C3C46;
     --text: #F0F0F4;
     --textSec: #9090A0;
-    --purple: #8B82E8;
+    --accent: #8B82E8;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -49,7 +51,7 @@
   }
   .brand {
     font-size: 18px;
-    color: var(--purple);
+    color: var(--accent);
     letter-spacing: 0.5px;
     margin-bottom: 6px;
     font-weight: 600;
@@ -95,7 +97,7 @@
   }
   .btn:active { transform: scale(0.97); }
   .btn-primary {
-    background: var(--purple);
+    background: var(--accent);
     color: var(--bg);
   }
   .btn-secondary {
@@ -120,98 +122,160 @@
   .footer a { color: var(--textSec); }
 </style>
 </head>
-<body>
+<body id="bodyEl">
 <div class="container">
-  <div class="brand">KLARO</div>
-  <h1>
-    <span class="lang-es">Te invitaron a una sala</span>
-    <span class="lang-en">You've been invited</span>
+  <div class="brand" id="brandEl">BURRNNY</div>
+  <h1 id="titleEl">
+    <span class="lang-es">Página no encontrada</span>
+    <span class="lang-en">Page not found</span>
   </h1>
 
   <div class="code-card" id="codeCard" style="display:none">
-    <div class="code-label">
-      <span class="lang-es">Código de sala</span>
-      <span class="lang-en">Room code</span>
+    <div class="code-label" id="codeLabelEl">
+      <span class="lang-es">Código</span>
+      <span class="lang-en">Code</span>
     </div>
     <div class="code" id="codeValue">——————</div>
   </div>
 
   <div id="appButtons">
-    <a id="openAppBtn" class="btn btn-primary" href="#">
-      <span class="lang-es">Abrir en Klaro</span>
-      <span class="lang-en">Open in Klaro</span>
+    <a id="openAppBtn" class="btn btn-primary" href="#" style="display:none">
+      <span class="lang-es" id="openLabelEs">Abrir en la app</span>
+      <span class="lang-en" id="openLabelEn">Open in app</span>
     </a>
-    <a class="btn btn-secondary"
-       href="https://apps.apple.com/app/id6766996270">
-      <span class="lang-es">Descargar Klaro · App Store</span>
-      <span class="lang-en">Download Klaro · App Store</span>
+    <a id="storeBtn" class="btn btn-secondary" href="https://apps.apple.com/">
+      <span class="lang-es" id="storeLabelEs">Descargar · App Store</span>
+      <span class="lang-en" id="storeLabelEn">Download · App Store</span>
     </a>
   </div>
 
   <p class="hint" id="iosHint" style="display:none">
-    <span class="lang-es">Si ya tienes la app, abrirá automáticamente. Si no, descárgala primero e ingresa el código manualmente.</span>
-    <span class="lang-en">If you have the app, it will open automatically. Otherwise, download it and enter the code manually.</span>
+    <span class="lang-es">Si ya tienes la app, abrirá automáticamente. Si no, descárgala primero.</span>
+    <span class="lang-en">If you have the app, it will open automatically. Otherwise, download it first.</span>
   </p>
   <p class="hint" id="desktopHint" style="display:none">
-    <span class="lang-es">Klaro está disponible para iPhone. Abre este link desde tu iPhone o anota el código y entra desde la app.</span>
-    <span class="lang-en">Klaro is iPhone-only. Open this link from your iPhone or note down the code and enter it from the app.</span>
+    <span class="lang-es">La app está disponible solo para iPhone. Abre este link desde tu iPhone.</span>
+    <span class="lang-en">The app is iPhone-only. Open this link from your iPhone.</span>
   </p>
 
   <div class="footer">
-    Klaro · <a href="/klaro/privacy.html">Privacy</a>
+    <span id="footerEl"><a href="https://burrnny.github.io/">burrnny.github.io</a></span>
   </div>
 </div>
 
 <script>
   (function() {
-    // Detectar idioma del navegador
+    // Detectar idioma
     var lang = (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
     document.documentElement.lang = lang;
 
-    // Parsear el código del path. Aceptamos /join/CODE, /join?code=CODE, /r/CODE
     var path = window.location.pathname.replace(/\/+$/, '');
     var search = new URLSearchParams(window.location.search);
-    var code = null;
-    var pathMatch = path.match(/^\/(?:join|r)\/([A-Z0-9]{4,12})$/i);
-    if (pathMatch) {
-      code = pathMatch[1].toUpperCase();
+
+    // ============== APP CONFIGS ==============
+    var APPS = {
+      klaro: {
+        brand: 'KLARO',
+        accent: '#8B82E8',
+        storeUrl: 'https://apps.apple.com/app/id6766996270',
+        titleEs: 'Te invitaron a una sala',
+        titleEn: "You've been invited",
+        codeLabelEs: 'Código de sala',
+        codeLabelEn: 'Room code',
+        openLabelEs: 'Abrir en Klaro',
+        openLabelEn: 'Open in Klaro',
+        storeLabelEs: 'Descargar Klaro · App Store',
+        storeLabelEn: 'Download Klaro · App Store',
+        footerLink: '<a href="/klaro/privacy.html">Privacy</a>'
+      },
+      gs: {
+        brand: 'GRAVITY SORT',
+        accent: '#8B82E8',
+        storeUrl: 'https://apps.apple.com/app/id6767609526',
+        titleEs: '¿Puedes superar este nivel?',
+        titleEn: 'Can you beat this level?',
+        codeLabelEs: 'Nivel',
+        codeLabelEn: 'Level',
+        openLabelEs: 'Abrir en Gravity Sort',
+        openLabelEn: 'Open in Gravity Sort',
+        storeLabelEs: 'Descargar Gravity Sort · GRATIS',
+        storeLabelEn: 'Download Gravity Sort · FREE',
+        footerLink: '<a href="https://burrnny.github.io/gravitysort-privacy/">Privacy</a>'
+      }
+    };
+
+    // ============== ROUTING ==============
+    var matched = { app: null, code: null };
+
+    // Klaro: /join/<code>, /r/<code>, /join?code=, /r?code=
+    var klaroMatch = path.match(/^\/(?:join|r)\/([A-Z0-9]{4,12})$/i);
+    if (klaroMatch) {
+      matched = { app: 'klaro', code: klaroMatch[1].toUpperCase() };
     } else if (path === '/join' || path === '/r') {
-      code = (search.get('code') || '').toUpperCase();
+      var codeParam = (search.get('code') || '').toUpperCase();
+      matched = { app: 'klaro', code: codeParam || null };
     }
 
-    // Si no es un path de join, mostramos solo redirect a app store
-    if (!code) {
-      document.getElementById('openAppBtn').style.display = 'none';
-      document.querySelector('h1').innerHTML = '<span class="lang-es">Página no encontrada</span><span class="lang-en">Page not found</span>';
-      return;
+    // Gravity Sort: /gs/c/<id>, /gs/<id>, /gs
+    if (!matched.app) {
+      var gsMatch = path.match(/^\/gs\/c\/(\d+)$/i);
+      if (gsMatch) {
+        matched = { app: 'gs', code: gsMatch[1] };
+      } else {
+        var gsLvlMatch = path.match(/^\/gs\/(\d+)$/i);
+        if (gsLvlMatch) {
+          matched = { app: 'gs', code: gsLvlMatch[1] };
+        } else if (path === '/gs' || path.indexOf('/gs/') === 0) {
+          matched = { app: 'gs', code: null };
+        }
+      }
     }
 
-    // Mostrar el código
-    document.getElementById('codeCard').style.display = 'block';
-    document.getElementById('codeValue').textContent = code;
+    // Apply config
+    var cfg = matched.app ? APPS[matched.app] : null;
 
-    // Universal link de Klaro — usa el path absoluto del sitio actual.
-    // iOS con app instalada intercepta este link ANTES de que el browser
-    // siga el href (gracias al AASA). Sin app, el browser navega y se
-    // queda en esta misma página (loop benigno) o muestra App Store.
-    var universalUrl = window.location.origin + '/join/' + code;
-    document.getElementById('openAppBtn').href = universalUrl;
+    if (cfg) {
+      document.documentElement.style.setProperty('--accent', cfg.accent);
+      document.getElementById('brandEl').textContent = cfg.brand;
+      var titleEl = document.getElementById('titleEl');
+      titleEl.innerHTML = '<span class="lang-es">' + cfg.titleEs + '</span>' +
+                          '<span class="lang-en">' + cfg.titleEn + '</span>';
+      document.getElementById('codeLabelEl').innerHTML =
+        '<span class="lang-es">' + cfg.codeLabelEs + '</span>' +
+        '<span class="lang-en">' + cfg.codeLabelEn + '</span>';
+      document.getElementById('openLabelEs').textContent = cfg.openLabelEs;
+      document.getElementById('openLabelEn').textContent = cfg.openLabelEn;
+      document.getElementById('storeLabelEs').textContent = cfg.storeLabelEs;
+      document.getElementById('storeLabelEn').textContent = cfg.storeLabelEn;
+      document.getElementById('storeBtn').href = cfg.storeUrl;
+      document.getElementById('footerEl').innerHTML = cfg.brand + ' · ' + cfg.footerLink;
 
-    // Detectar plataforma
+      // Si hay código, mostrar la card y configurar Universal Link
+      if (matched.code) {
+        document.getElementById('codeCard').style.display = 'block';
+        document.getElementById('codeValue').textContent = matched.code;
+        document.getElementById('openAppBtn').style.display = 'block';
+        document.getElementById('openAppBtn').href =
+          window.location.origin + window.location.pathname;
+      }
+    }
+
+    // ============== UA DETECTION ==============
     var ua = navigator.userAgent;
-    var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-    if (isIOS) {
-      document.getElementById('iosHint').style.display = 'block';
-      // Intentar abrir el universal link automaticamente cuando se llega a esta
-      // página desde un click en Messages/WhatsApp/etc — iOS abre la app si
-      // está instalada y el AASA está aprobado. Si la página termina cargando
-      // significa que la app NO está instalada → el botón secundario lleva al
-      // App Store.
-      // No hacemos auto-redirect a App Store: dejamos que el usuario decida.
+    if (cfg) {
+      if (isIOS) {
+        document.getElementById('iosHint').style.display = 'block';
+      } else {
+        document.getElementById('desktopHint').style.display = 'block';
+        var openBtn = document.getElementById('openAppBtn');
+        if (openBtn) openBtn.style.display = 'none';
+      }
     } else {
-      document.getElementById('desktopHint').style.display = 'block';
-      document.getElementById('openAppBtn').style.display = 'none';
+      // Genuino 404 — sin match a ninguna app
+      document.getElementById('storeBtn').style.display = 'none';
     }
   })();
 </script>
