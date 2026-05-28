@@ -10,6 +10,13 @@
           "/r/*",
           "/r"
         ]
+      },
+      {
+        "appID": "FCNVM9KW43.com.juangarrapatajr.gravitysort",
+        "paths": [
+          "/gs/*",
+          "/gs"
+        ]
       }
     ]
   }
