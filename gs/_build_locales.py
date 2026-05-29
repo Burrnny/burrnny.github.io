@@ -89,7 +89,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta property="og:site_name" content="Gravity Sort">
 <meta property="og:title" content="{og_title}">
 <meta property="og:description" content="{og_desc}">
-<meta property="og:image" content="https://burrnny.com/gs/og.png">
+<meta property="og:image" content="https://burrnny.com/gs/og-{html_lang}.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{og_alt}">
@@ -98,7 +98,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{og_title}">
 <meta name="twitter:description" content="{og_desc}">
-<meta name="twitter:image" content="https://burrnny.com/gs/og.png">
+<meta name="twitter:image" content="https://burrnny.com/gs/og-{html_lang}.png">
 <title>{page_title}</title>
 <meta name="description" content="{meta_desc}">
 <meta name="apple-itunes-app" content="app-id=6767609526">
