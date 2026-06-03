@@ -86,20 +86,18 @@ TEMPLATE = """<!DOCTYPE html>
   }}
   document.getElementById('codeCard').style.display='block';
   document.getElementById('codeValue').textContent = code;
-  // Custom scheme: abre la app DIRECTO en la sala 1v1. Es más fiable que el
-  // universal link cuando ya estás en el navegador (same-domain no lo abre).
-  var appLink = 'gravitysort://r/' + code;
-  document.getElementById('openBtn').href = appLink;
+  // UNIVERSAL LINK (no custom scheme, no auto-redirect) — el enfoque que SÍ
+  // funciona en Klaro. iOS con la app instalada intercepta el tap vía AASA
+  // (applinks:burrnny.com → /gs/*) y abre la app DIRECTO en la sala de espera.
+  // El custom scheme con auto-redirect fallaba dentro del navegador in-app de
+  // WhatsApp/Instagram (lo bloquea); el universal link por tap SÍ rompe afuera.
+  // Sin app instalada, el botón solo recarga esta página (loop benigno) y
+  // queda el botón de App Store debajo.
+  var universalUrl = window.location.origin + '/gs/r/?c=' + code;
+  document.getElementById('openBtn').href = universalUrl;
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
   document.getElementById(isIOS ? 'iosHint' : 'desktopHint').style.display='block';
-  if (isIOS) {{
-    // Auto-abre la app; si no está instalada, cae al App Store tras 1.6s.
-    var t = setTimeout(function(){{ window.location.href = 'https://apps.apple.com/app/id6767609526'; }}, 1600);
-    window.addEventListener('pagehide', function(){{ clearTimeout(t); }});
-    window.location.href = appLink;
-  }} else {{
-    document.getElementById('openBtn').style.display='none';
-  }}
+  if (!isIOS) {{ document.getElementById('openBtn').style.display='none'; }}
 }})();
 </script>
 </body>
