@@ -65,10 +65,20 @@
   }
   document.getElementById('codeCard').style.display='block';
   document.getElementById('codeValue').textContent = code;
-  document.getElementById('openBtn').href = window.location.origin + '/gs/ja/r/?c=' + code;
+  // Custom scheme: abre la app DIRECTO en la sala 1v1. Es más fiable que el
+  // universal link cuando ya estás en el navegador (same-domain no lo abre).
+  var appLink = 'gravitysort://r/' + code;
+  document.getElementById('openBtn').href = appLink;
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
   document.getElementById(isIOS ? 'iosHint' : 'desktopHint').style.display='block';
-  if (!isIOS) document.getElementById('openBtn').style.display='none';
+  if (isIOS) {
+    // Auto-abre la app; si no está instalada, cae al App Store tras 1.6s.
+    var t = setTimeout(function(){ window.location.href = 'https://apps.apple.com/app/id6767609526'; }, 1600);
+    window.addEventListener('pagehide', function(){ clearTimeout(t); });
+    window.location.href = appLink;
+  } else {
+    document.getElementById('openBtn').style.display='none';
+  }
 })();
 </script>
 </body>
