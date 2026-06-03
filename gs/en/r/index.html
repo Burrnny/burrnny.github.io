@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#0e1140">
+<title>⚔️ You've been challenged · Gravity Sort 1v1</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="⚔️ You've been challenged · Gravity Sort 1v1">
+<meta property="og:description" content="You're invited to a 1 vs 1 match in Gravity Sort. Tap to join the room.">
+<meta property="og:image" content="https://burrnny.com/gs/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Gravity Sort">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="⚔️ You've been challenged · Gravity Sort 1v1">
+<meta name="twitter:description" content="You're invited to a 1 vs 1 match in Gravity Sort. Tap to join the room.">
+<meta name="twitter:image" content="https://burrnny.com/gs/og-en.png">
+<meta name="apple-itunes-app" content="app-id=6767609526">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg, #0e1140, #1a1052); color: #fff;
+    min-height: 100vh; margin: 0; display: flex; align-items: center;
+    justify-content: center; text-align: center; padding: 20px; }
+  .card { max-width: 380px; width: 100%; padding: 36px 24px;
+    background: rgba(255,255,255,0.06); border-radius: 26px;
+    backdrop-filter: blur(20px); }
+  .brand { font-size: 13px; letter-spacing: 2px; opacity: 0.6; font-weight: 700; }
+  h1 { font-size: 26px; margin: 10px 0 4px; font-weight: 800;
+    background: linear-gradient(90deg, #ff6ad5, #6ad8ff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .code-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px; padding: 22px 12px; margin: 24px 0; }
+  .code-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; opacity: 0.55; margin-bottom: 8px; }
+  .code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 34px; font-weight: 700; letter-spacing: 6px; }
+  .btn { display: block; width: 100%; padding: 15px; border-radius: 14px; text-decoration: none;
+    font-size: 16px; font-weight: 700; margin: 10px 0; }
+  .btn-primary { background: #fff; color: #0e1140; }
+  .btn-secondary { background: rgba(255,255,255,0.10); color: #fff; border: 1px solid rgba(255,255,255,0.18); }
+  .hint { opacity: 0.6; font-size: 13px; line-height: 1.5; margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">GRAVITY SORT</div>
+  <h1>You've been challenged to a 1v1</h1>
+  <div class="code-card" id="codeCard" style="display:none">
+    <div class="code-label">Room code</div>
+    <div class="code" id="codeValue">——————</div>
+  </div>
+  <a id="openBtn" class="btn btn-primary" href="#">Open in Gravity Sort</a>
+  <a class="btn btn-secondary" href="https://apps.apple.com/app/id6767609526">Download free · App Store</a>
+  <p class="hint" id="iosHint" style="display:none">If you have the app, it opens automatically. Otherwise download it and enter the code.</p>
+  <p class="hint" id="desktopHint" style="display:none">Gravity Sort is iPhone-only. Open this link on your iPhone or note the code.</p>
+</div>
+<script>
+(function(){
+  var code = (new URLSearchParams(window.location.search).get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if (!/^[A-Z0-9]{4,8}$/.test(code)) {
+    document.getElementById('openBtn').style.display='none';
+    document.querySelector('h1').textContent = 'Invalid code';
+    return;
+  }
+  document.getElementById('codeCard').style.display='block';
+  document.getElementById('codeValue').textContent = code;
+  document.getElementById('openBtn').href = window.location.origin + '/gs/en/r/?c=' + code;
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  document.getElementById(isIOS ? 'iosHint' : 'desktopHint').style.display='block';
+  if (!isIOS) document.getElementById('openBtn').style.display='none';
+})();
+</script>
+</body>
+</html>
