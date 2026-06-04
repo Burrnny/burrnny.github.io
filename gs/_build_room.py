@@ -98,9 +98,13 @@ TEMPLATE = """<!DOCTYPE html>
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
   document.getElementById(isIOS ? 'iosHint' : 'desktopHint').style.display='block';
   if (isIOS) {{
-    // Auto-abre la app al cargar la página (si está instalada). Si no, no pasa
-    // nada y el usuario usa el botón "Abrir" o "Descargar".
-    setTimeout(function(){{ window.location.href = appLink; }}, 250);
+    // Auto-abre la app de INMEDIATO (no en setTimeout): un cambio de location
+    // diferido Safari lo trata como "no iniciado por el usuario" y lo bloquea;
+    // inmediato sí dispara el prompt "¿Abrir en Gravity Sort?". Si no está
+    // instalada no pasa nada y queda el botón "Abrir". Reintento corto por si
+    // el primer intento se perdió durante la carga.
+    window.location.href = appLink;
+    setTimeout(function(){{ window.location.href = appLink; }}, 800);
   }} else {{
     document.getElementById('openBtn').style.display='none';
   }}
