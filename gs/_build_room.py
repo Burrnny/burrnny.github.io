@@ -86,18 +86,24 @@ TEMPLATE = """<!DOCTYPE html>
   }}
   document.getElementById('codeCard').style.display='block';
   document.getElementById('codeValue').textContent = code;
-  // UNIVERSAL LINK (no custom scheme, no auto-redirect) — el enfoque que SÍ
-  // funciona en Klaro. iOS con la app instalada intercepta el tap vía AASA
-  // (applinks:burrnny.com → /gs/*) y abre la app DIRECTO en la sala de espera.
-  // El custom scheme con auto-redirect fallaba dentro del navegador in-app de
-  // WhatsApp/Instagram (lo bloquea); el universal link por tap SÍ rompe afuera.
-  // Sin app instalada, el botón solo recarga esta página (loop benigno) y
-  // queda el botón de App Store debajo.
-  var universalUrl = window.location.origin + '/gs/r/?c=' + code;
-  document.getElementById('openBtn').href = universalUrl;
+  // CUSTOM SCHEME — la ÚNICA forma confiable de salir del navegador in-app de
+  // WhatsApp/Instagram hacia la app. iOS intercepta gravitysort:// en un tap y
+  // abre la app DIRECTO en la sala de espera. El universal link NO rompe afuera
+  // del webview de WhatsApp (solo recarga la página → por eso "no abría").
+  // Auto-intentamos al cargar (el usuario ya tocó el link) y dejamos el botón
+  // como respaldo. SIN auto-redirect a la App Store: eso mandaba a la tienda
+  // aunque tuvieras la app instalada (el bug anterior).
+  var appLink = 'gravitysort://r/' + code;
+  document.getElementById('openBtn').href = appLink;
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
   document.getElementById(isIOS ? 'iosHint' : 'desktopHint').style.display='block';
-  if (!isIOS) {{ document.getElementById('openBtn').style.display='none'; }}
+  if (isIOS) {{
+    // Auto-abre la app al cargar la página (si está instalada). Si no, no pasa
+    // nada y el usuario usa el botón "Abrir" o "Descargar".
+    setTimeout(function(){{ window.location.href = appLink; }}, 250);
+  }} else {{
+    document.getElementById('openBtn').style.display='none';
+  }}
 }})();
 </script>
 </body>
