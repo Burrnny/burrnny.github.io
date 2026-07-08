@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Compa Admin · Política de Privacidad</title>
+<style>
+  body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; background: #fafafa; }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  h2 { font-size: 20px; margin-top: 32px; color: #444; }
+  .updated { color: #888; font-size: 13px; margin-bottom: 24px; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: #C79A0C; }
+</style>
+</head>
+<body>
+<h1>El Compa Admin — Política de Privacidad</h1>
+<p class="updated">Última actualización: 8 de julio de 2026 (v1.0)</p>
+
+<p>El Compa Admin es una aplicación de uso interno para la administración de las taquerías
+El Compa (Puebla, México): inventario, empleados, nómina semanal, estadísticas, proveedores
+y reportes de las sucursales. <strong>No es una app de consumo general</strong>: el acceso
+requiere una cuenta creada por la administración del negocio y se distribuye de forma no
+listada. Esta política explica qué información maneja la app y cómo se usa.</p>
+
+<h2>1. Quién es responsable</h2>
+<p>La administración de las taquerías El Compa es la responsable de los datos que se
+capturan con esta herramienta. Contacto para cualquier tema de privacidad:
+<a href="mailto:juanmanuelchio12@gmail.com">juanmanuelchio12@gmail.com</a>.</p>
+
+<h2>2. Información de tu cuenta (usuario administrador)</h2>
+<ul>
+  <li><strong>Correo y contraseña de acceso:</strong> se usan únicamente para autenticarte
+  (Firebase Authentication de Google). La app nunca almacena tu contraseña.</li>
+  <li><strong>Identificador de usuario:</strong> un identificador interno de tu cuenta se
+  asocia a los registros que creas y a los reportes de fallos (ver sección 5), para saber
+  qué cuenta realizó cada acción. Se desvincula al cerrar sesión.</li>
+</ul>
+
+<h2>3. Información del negocio que la app captura</h2>
+<p>La app existe para registrar la operación del negocio. Los datos los capturan los
+usuarios autorizados (administración y encargados) y pertenecen al negocio:</p>
+<ul>
+  <li><strong>Empleados:</strong> nombre, teléfono, puesto, días de servicio, sueldo
+  semanal, vacaciones, evaluaciones semanales y, opcionalmente, fotografía. Estos datos
+  los captura la administración para gestionar a su personal.</li>
+  <li><strong>Operación:</strong> inventarios diarios, pagos y evaluaciones semanales,
+  cierres del día (ventas), proveedores y pedidos, reportes de los encargados.</li>
+  <li><strong>Fotografías:</strong> la cámara y la galería se usan solo cuando tú eliges
+  tomar o adjuntar la foto de un producto, empleado o proveedor. La app no accede a tu
+  galería en segundo plano.</li>
+</ul>
+
+<h2>4. Dónde se guarda</h2>
+<p>Todos los datos se almacenan en <strong>Firebase (Google Cloud)</strong>, en servidores
+de Estados Unidos (región us-central1), bajo las medidas de seguridad de Google. El acceso
+está restringido por reglas de seguridad: cada cuenta solo ve lo que su rol permite
+(la administración ve todo; cada encargado, solo su sucursal). Se realizan respaldos
+automáticos diarios y semanales.</p>
+
+<h2>5. Diagnóstico de fallos y notificaciones</h2>
+<ul>
+  <li><strong>Crashlytics (Google):</strong> si la app falla, se envía un reporte técnico
+  del fallo (modelo de dispositivo, versión de iOS, traza del error) asociado al
+  identificador de tu cuenta, únicamente para diagnosticar y corregir el problema.</li>
+  <li><strong>Notificaciones push (Firebase Cloud Messaging):</strong> el dispositivo
+  registra un token anónimo de notificaciones para avisarte de nuevos reportes e
+  inventarios/pagos enviados. El token se elimina al cerrar sesión.</li>
+</ul>
+
+<h2>6. Lo que NO hacemos</h2>
+<ul>
+  <li>No vendemos ni compartimos datos con terceros con fines comerciales.</li>
+  <li>No usamos publicidad ni rastreadores publicitarios (sin IDFA, sin “tracking”).</li>
+  <li>No recopilamos tu ubicación ni tus contactos.</li>
+  <li>No usamos los datos para ningún fin distinto a la operación del negocio.</li>
+</ul>
+
+<h2>7. Conservación y eliminación</h2>
+<p>Los datos se conservan mientras el negocio los necesite para su operación y
+obligaciones. La administración puede eliminar empleados, productos, registros y cuentas
+de encargados desde la propia app. Para solicitar la eliminación de datos personales
+(por ejemplo, si fuiste empleado del negocio), escribe a
+<a href="mailto:juanmanuelchio12@gmail.com">juanmanuelchio12@gmail.com</a>.</p>
+
+<h2>8. Cambios a esta política</h2>
+<p>Si esta política cambia, se actualizará esta página con su nueva fecha.</p>
+
+<p style="margin-top:40px"><a href="support.html">Soporte de El Compa Admin</a> ·
+<a href="https://burrnny.com">burrnny.com</a></p>
+</body>
+</html>
