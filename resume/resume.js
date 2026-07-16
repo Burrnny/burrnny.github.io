@@ -76,7 +76,7 @@
     'ec.f8t': 'No hard deletes', 'ec.f8d': 'Products are archived; the business history is never lost.',
     'ec.arch.a': 'Admin iOS (owner)', 'ec.arch.b': 'Secure cloud · real time', 'ec.arch.c': 'Supervisores Android',
     'ec.s1': 'locations in production', 'ec.s2': 'traffic-light levels', 'ec.s3': 'native platforms', 'ec.s4': 'source of truth: the server',
-    'ec.note': 'An internal system in production: out of respect for the business’s real data, only the front doors are shown here — what it does inside is told by the features below.',
+    'ec.note': 'The system runs in production with the business’s real data; these captures run in demo mode with invented information.',
 
     /* La Cocina */
     'lc.kicker': 'Case 04 · Mexican restaurant · York, Nebraska',
