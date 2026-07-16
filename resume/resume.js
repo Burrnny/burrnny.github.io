@@ -2,6 +2,12 @@
 (function () {
   'use strict';
 
+  // Anti-clickjacking (GitHub Pages no permite cabeceras; mejor esfuerzo en cliente).
+  try { if (window.top !== window.self) { window.top.location = window.self.location; } } catch (e) {}
+
+  // El toggle de idioma requiere JS: se revela marcando la raíz.
+  document.documentElement.classList.add('js');
+
   /* ---------- i18n ----------
      ES es la fuente de verdad y vive en el markup; se captura al cargar.
      EN se define aquí. setLang aplica el diccionario correspondiente. */
@@ -182,7 +188,8 @@
     captureSpanish();
     let saved = 'es';
     try { saved = localStorage.getItem('resume-lang') || 'es'; } catch (e) {}
-    if (saved !== 'es') setLang(saved); else setLang('es');
+    if (saved !== 'es' && saved !== 'en') saved = 'es';
+    setLang(saved);
     document.querySelectorAll('[data-lang-btn]').forEach(b =>
       b.addEventListener('click', () => setLang(b.dataset.langBtn)));
     startCarousels();

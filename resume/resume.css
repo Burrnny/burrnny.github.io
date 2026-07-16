@@ -78,9 +78,9 @@ body::after {
   text-decoration: none; letter-spacing: .5px;
 }
 .topbar__spacer { flex: 1; }
-.lang {
-  display: flex; border: 1px solid var(--line); border-radius: 99px; overflow: hidden;
-}
+/* el toggle solo sirve con JS: oculto hasta que resume.js marca html.js */
+.lang { display: none; border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
+html.js .lang { display: flex; }
 .lang button {
   font-family: var(--sans); font-size: 12px; letter-spacing: .12em;
   background: none; border: 0; color: var(--sub); padding: 6px 12px; cursor: pointer;
@@ -262,6 +262,7 @@ body::after {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 18px; margin-top: clamp(36px, 5vw, 56px);
 }
+.apps2--tight { margin-top: 0; }
 .app-card {
   border: 1px solid var(--cline); border-radius: 18px; padding: 22px 24px;
   background: color-mix(in srgb, var(--cink) 3%, transparent);
