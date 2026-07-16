@@ -17,6 +17,7 @@
     'hero.cta1': 'Let’s talk about your app', 'hero.cta2': 'See the work',
     'hero.s1': 'real businesses', 'hero.s2': 'native apps', 'hero.s3': 'countries',
     'hero.s4': 'custom-built',
+    'ui.demo': 'Screenshots use sample data — they don’t show any business’s or customer’s real information.',
 
     /* San Marco */
     'sm.kicker': 'Case 01 · Italian restaurant · Atlixco, Mexico',
@@ -108,7 +109,6 @@
     'ct.h2': 'Does your business need <em>its own app</em>?',
     'ct.p': 'Tell me what your business does and I’ll propose what its system could look like — no strings attached, in your language.',
     'ct.cta': 'Write to me',
-    'ct.where': 'Puebla, Mexico · working with businesses in MX and the US',
     'ft.made': '© 2026 Burrnny — handmade, like everything above.',
     'ft.back': 'burrnny.com'
   } };

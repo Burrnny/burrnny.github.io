@@ -333,6 +333,13 @@ body::after {
   border-left: 2px solid var(--acc); padding-left: 14px; max-width: 60ch;
 }
 
+/* aclaración de datos de ejemplo */
+.demo-note {
+  margin-top: 16px; font-size: 12px; letter-spacing: .02em;
+  color: var(--csub); opacity: .75; max-width: 70ch;
+}
+.demo-note::before { content: 'ⓘ '; color: var(--acc); }
+
 /* ---------- proceso ---------- */
 .process { padding: clamp(80px, 11vw, 150px) var(--pad); }
 .process__inner { max-width: var(--maxw); margin: 0 auto; }
@@ -371,13 +378,9 @@ body::after {
 .contact__inner { max-width: 760px; margin: 0 auto; position: relative; }
 .contact p { color: var(--sub); margin-top: 18px; font-size: 17px; }
 .contact .btn { margin-top: 34px; display: inline-block; font-size: 16px; padding: 16px 34px; }
-.socials { display: flex; justify-content: center; gap: 26px; margin-top: 38px; list-style: none; flex-wrap: wrap; }
-.socials a {
-  font-size: 13.5px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
-  color: var(--sub); border-bottom: 1px solid transparent; padding-bottom: 2px;
-}
-.socials a:hover { color: var(--gold); border-bottom-color: var(--gold); }
-.contact__where { margin-top: 42px; font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--sub); }
+.contact__where { margin-top: 30px; font-size: 14px; letter-spacing: .04em; color: var(--sub); }
+.contact__mail { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(226,181,116,.4); padding-bottom: 2px; }
+.contact__mail:hover { border-bottom-color: var(--gold); }
 
 /* ---------- footer ---------- */
 footer {
