@@ -172,6 +172,7 @@
         v.controls = true; v.setAttribute('playsinline', '');
         screen.replaceChildren(v);
         play.remove();
+        v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true });
         v.play().catch(() => {});
       });
     });
