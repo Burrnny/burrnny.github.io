@@ -16,7 +16,7 @@
     'hero.sub': 'I design and build complete systems for restaurants and service businesses in Mexico and the US: the app your customers see, the app your team operates with, and the secure backend that connects them.',
     'hero.cta1': 'Let’s talk about your app', 'hero.cta2': 'See the work',
     'hero.s1': 'real businesses', 'hero.s2': 'native apps', 'hero.s3': 'countries',
-    'hero.s4': 'lines of code', 'hero.s5': 'Cloud Functions',
+    'hero.s4': 'custom-built',
     'ui.play': 'Watch demo',
 
     /* San Marco */
@@ -34,13 +34,13 @@
     'sm.f6t': 'Seasons', 'sm.f6d': 'The pass resets each season; lifetime points are kept.',
     'sm.f7t': 'QR coupons', 'sm.f7d': 'Redeemed at the register with a built-in scanner and server validation.',
     'sm.f8t': 'Staff with permissions', 'sm.f8d': 'The owner creates staff accounts with 14 granular capabilities.',
-    'sm.arch.a': 'Customer app (iPhone)', 'sm.arch.b': '29 Cloud Functions · Firestore', 'sm.arch.c': 'Staff app (iPhone · iPad)',
-    'sm.s1': 'lines of Swift', 'sm.s2': 'Cloud Functions', 'sm.s3': 'screens', 'sm.s4': 'reward levels',
+    'sm.arch.a': 'Customer app (iPhone)', 'sm.arch.b': 'Secure cloud · real time', 'sm.arch.c': 'Staff app (iPhone · iPad)',
+    'sm.s1': 'iOS apps', 'sm.s2': 'reward levels', 'sm.s3': 'screens', 'sm.s4': 'staff permissions',
 
     /* ShineBright */
     'sb.kicker': 'Case 02 · Home cleaning · United States',
     'sb.pitch': 'Two native apps on a custom design system: clients book, negotiate their quote, pay and chat; the business runs schedule, CRM, coupons and metrics.',
-    'sb.chip1': '2 iOS apps', 'sb.chip2': 'On TestFlight', 'sb.chip3': 'Swift 6', 'sb.chip4': 'English + Spanish',
+    'sb.chip1': '2 iOS apps', 'sb.chip2': 'In development', 'sb.chip3': 'Swift 6', 'sb.chip4': 'English + Spanish',
     'sb.devc.t': 'ShineBright', 'sb.devc.s': 'what your clients see',
     'sb.devb.t': 'ShineBright Admin', 'sb.devb.s': 'what the business runs on',
     'sb.appc.k': 'Customer app', 'sb.appc.d': 'Multi-step booking, negotiable quotes, Zelle payment with receipt, live chat, loyalty pass and service rating.',
@@ -53,13 +53,13 @@
     'sb.f6t': 'CRM with follow-ups', 'sb.f6d': 'Overdue rebooks, new clients and win-backs, with a nightly digest.',
     'sb.f7t': 'Automatic reminders', 'sb.f7d': 'Push the evening before and the morning of every visit.',
     'sb.f8t': 'Data security', 'sb.f8d': 'App Check, per-user rate limits and security rules covered by tests.',
-    'sb.arch.a': 'Customer app', 'sb.arch.b': '11 Cloud Functions · Firestore', 'sb.arch.c': 'Admin app',
-    'sb.s1': 'lines of Swift 6', 'sb.s2': 'TypeScript functions', 'sb.s3': 'screens', 'sb.s4': 'languages',
+    'sb.arch.a': 'Customer app', 'sb.arch.b': 'Secure cloud · real time', 'sb.arch.c': 'Admin app',
+    'sb.s1': 'native apps', 'sb.s2': 'screens', 'sb.s3': 'languages', 'sb.s4': 'visits per reward',
 
     /* El Compa */
     'ec.kicker': 'Case 03 · Taquerías · 2 locations · Puebla, Mexico',
     'ec.pitch': 'The owner runs everything from an iPhone; branch managers work from Android. Traffic-light inventory, weekly payroll and cash closes — with the server as the single source of truth.',
-    'ec.chip1': 'Native iOS + Android', 'ec.chip2': 'In daily operation', 'ec.chip3': 'Firebase',
+    'ec.chip1': 'Native iOS + Android', 'ec.chip2': 'In production · daily use', 'ec.chip3': 'Firebase',
     'ec.devc.t': 'El Compa Admin', 'ec.devc.s': 'iOS · the owner',
     'ec.devb.t': 'Supervisores', 'ec.devb.s': 'Android · branch managers',
     'ec.appc.k': 'Owner app · iOS', 'ec.appc.d': 'Six-level traffic-light inventory, weekly payroll with Sunday auto-freeze, employees and vacations, suppliers, cash closes with charts and real-time reports.',
@@ -72,14 +72,14 @@
     'ec.f6t': 'Cash closes', 'ec.f6d': 'Cash, card and delivery apps, with weekly and monthly charts.',
     'ec.f7t': 'Suppliers and orders', 'ec.f7d': 'Purchase history and live totals.',
     'ec.f8t': 'No hard deletes', 'ec.f8d': 'Products are archived; the business history is never lost.',
-    'ec.arch.a': 'Admin iOS (owner)', 'ec.arch.b': '21 Cloud Functions · Firestore', 'ec.arch.c': 'Supervisores Android',
-    'ec.s1': 'lines of Swift', 'ec.s2': 'lines of Kotlin', 'ec.s3': 'Cloud Functions', 'ec.s4': 'locations live',
+    'ec.arch.a': 'Admin iOS (owner)', 'ec.arch.b': 'Secure cloud · real time', 'ec.arch.c': 'Supervisores Android',
+    'ec.s1': 'locations in production', 'ec.s2': 'traffic-light levels', 'ec.s3': 'native platforms', 'ec.s4': 'source of truth: the server',
     'ec.note': 'Screens tagged “prototype” belong to the interactive design approved before building; the system runs today with the business’s real data.',
 
     /* La Cocina */
     'lc.kicker': 'Case 04 · Mexican restaurant · York, Nebraska',
     'lc.pitch': 'Loyalty with zero friction: the app reads the physical receipt with the camera, validates it’s real, and turns spending into points on a 100-level battle pass.',
-    'lc.chip1': 'iOS', 'lc.chip2': 'MVP 1.0 signed', 'lc.chip3': 'VisionKit OCR',
+    'lc.chip1': 'iOS', 'lc.chip2': 'Working concept', 'lc.chip3': 'VisionKit OCR',
     'lc.devc.t': 'La Cocina', 'lc.devc.s': 'customer app',
     'lc.appc.k': 'Customer app', 'lc.appc.d': 'Receipt scanner with OCR, battle pass with an animated thermometer, bilingual 23-category menu, level-based coupons and favorites.',
     'lc.appb.k': 'Business app', 'lc.appb.d': 'In construction: ticket and reward management for the staff.',
@@ -91,16 +91,17 @@
     'lc.f6t': 'Level coupons', 'lc.f6d': 'Rewards unlock from level 5 up to 100.',
     'lc.f7t': 'Getting there', 'lc.f7d': 'Map, Waze/Google/Apple Maps and one-tap call.',
     'lc.f8t': 'Privacy first', 'lc.f8d': 'Everything lives on the customer’s phone; zero accounts, zero friction.',
-    'lc.arch.a': 'Customer app (iPhone)', 'lc.arch.b': 'VisionKit · SwiftData', 'lc.arch.c': 'Admin panel (in construction)',
-    'lc.s1': 'lines of Swift', 'lc.s2': 'screens', 'lc.s3': 'pass levels', 'lc.s4': 'menu categories',
-    'lc.note': 'A focused MVP: the customer app first; the business panel is the next phase.',
+    'lc.arch.a': 'Customer app (iPhone)', 'lc.arch.b': 'Scanner and data on the phone', 'lc.arch.c': 'Admin panel (in construction)',
+    'lc.s1': 'pass levels', 'lc.s2': 'menu categories', 'lc.s3': 'screens', 'lc.s4': 'languages',
+    'lc.note': 'A working concept: the customer app first; the business panel is the next phase.',
 
     /* proceso */
     'pr.h2': 'How I <em>work</em>',
-    'pr.s1t': 'Discovery inside the business', 'pr.s1d': 'I sit with the owner and their real operation: tips, capture windows, tables that merge, POS receipts. The software rules come from there, not from a template.',
-    'pr.s2t': 'Interactive prototype in days', 'pr.s2d': 'Before writing a single native line, I deliver an HTML prototype you can navigate on your phone. We adjust there, where change is cheap.',
-    'pr.s3t': 'Native apps + secure backend', 'pr.s3d': 'SwiftUI on iOS, Kotlin/Compose on Android, Firebase with server-side rules, App Check and cloud functions: the server is the authority, not the phone.',
-    'pr.s4t': 'App Store and operation', 'pr.s4d': 'TestFlight, App Store listing, notifications, analytics and support. The deliverable isn’t a .zip: it’s your business running on the app.',
+    'pr.s1t': 'Discovery inside your business', 'pr.s1d': 'I sit with the owner and their real operation: tips, capture windows, tables that merge, POS receipts. The app’s rules come from there, not from a template.',
+    'pr.s2t': 'Pricing that fits your business', 'pr.s2d': 'Every project is quoted to fit your business and your real needs — no inflated packages, no features you’ll never use.',
+    'pr.s3t': 'Real quality, real usefulness', 'pr.s3d': 'Committed to quality and true usefulness: native, fast, secure apps your team and your customers use every day because they actually help.',
+    'pr.s4t': 'More than you imagined', 'pr.s4d': 'I’m proactive: I’ll propose options and features you hadn’t imagined — a puzzle that rewards wine, a traffic-light inventory, a battle pass — so your app delivers more value than you asked for.',
+    'pr.s5t': 'App Store and operation', 'pr.s5d': 'Your app published and running: App Store, notifications, analytics and support. The deliverable isn’t a file: it’s your business running on its app.',
 
     /* contacto */
     'ct.h2': 'Does your business need <em>its own app</em>?',
