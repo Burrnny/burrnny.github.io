@@ -17,13 +17,14 @@
     'hero.cta1': 'Let’s talk about your app', 'hero.cta2': 'See the work',
     'hero.s1': 'real businesses', 'hero.s2': 'native apps', 'hero.s3': 'countries',
     'hero.s4': 'custom-built',
-    'ui.play': 'Watch demo',
 
     /* San Marco */
     'sm.kicker': 'Case 01 · Italian restaurant · Atlixco, Mexico',
     'sm.pitch': 'A loyalty program turned into a game — a level tower, a roulette and a photo puzzle — plus reservations with live negotiation and an operations panel the restaurant runs on iPad.',
     'sm.chip1': '2 iOS apps', 'sm.chip2': 'On the App Store', 'sm.chip3': 'Firebase',
     'sm.cap': 'Official App Store listing cards.',
+    'sm.devc.t': 'San Marco', 'sm.devc.s': 'what your diners see',
+    'sm.devb.t': 'San Marco Restaurante', 'sm.devb.s': 'operations: tables, coupons, reservations',
     'sm.appc.k': 'Customer app', 'sm.appc.d': 'Digital menu, reservations and takeout, points for visits and spending, level rewards, roulette and puzzle. Sign in with SMS or Apple.',
     'sm.appb.k': 'Business app', 'sm.appb.d': 'Live table map, counter-offer reservations, coupon scanner, push campaigns, monthly analytics and staff sub-accounts with 14 granular permissions. iPhone and iPad.',
     'sm.f1t': '15-level tower', 'sm.f1d': 'Every visit earns points; every level unlocks a house reward.',
@@ -156,29 +157,6 @@
     });
   }
 
-  /* ---------- video slots (degradan a carrusel si falta el archivo) ---------- */
-  function initVideoSlots() {
-    document.querySelectorAll('.video-slot').forEach(slot => {
-      const src = slot.dataset.video;
-      if (!src) return;
-      fetch(src, { method: 'HEAD' })
-        .then(r => { if (!r.ok) throw 0; slot.classList.add('has-video'); })
-        .catch(() => { const p = slot.querySelector('.play'); if (p) p.remove(); });
-      const play = slot.querySelector('.play');
-      if (play) play.addEventListener('click', () => {
-        const screen = slot.querySelector('.phone__screen') || slot;
-        if (screen.dataset.timer) clearInterval(Number(screen.dataset.timer));
-        const v = document.createElement('video');
-        v.src = src; v.muted = true; v.loop = true; v.autoplay = true;
-        v.controls = true; v.setAttribute('playsinline', '');
-        screen.replaceChildren(v);
-        play.remove();
-        v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true });
-        v.play().catch(() => {});
-      });
-    });
-  }
-
   /* ---------- reveals + scrollspy ---------- */
   function initObservers() {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -204,7 +182,6 @@
     document.querySelectorAll('[data-lang-btn]').forEach(b =>
       b.addEventListener('click', () => setLang(b.dataset.langBtn)));
     startCarousels();
-    initVideoSlots();
     initObservers();
   });
 })();
