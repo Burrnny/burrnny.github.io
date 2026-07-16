@@ -42,7 +42,7 @@
     'sb.kicker': 'Case 02 · Home cleaning · United States',
     'sb.pitch': 'Two native apps on a custom design system: clients book, negotiate their quote, pay and chat; the business runs schedule, CRM, coupons and metrics.',
     'sb.chip1': '2 iOS apps', 'sb.chip2': 'In development', 'sb.chip3': 'Swift 6', 'sb.chip4': 'English + Spanish',
-    'sb.devc.t': 'ShineBright', 'sb.devc.s': 'what your clients see',
+    'sb.devc.t': 'ShineBright', 'sb.devc.s': 'what your clients see · ES/EN',
     'sb.devb.t': 'ShineBright Admin', 'sb.devb.s': 'what the business runs on',
     'sb.appc.k': 'Customer app', 'sb.appc.d': 'Multi-step booking, negotiable quotes, Zelle payment with receipt, live chat, loyalty pass and service rating.',
     'sb.appb.k': 'Business app', 'sb.appb.d': 'Today’s schedule, calendar with blocked slots, CRM with notes and tags, coupons, payment confirmation, push broadcasts and business metrics.',
@@ -75,7 +75,7 @@
     'ec.f8t': 'No hard deletes', 'ec.f8d': 'Products are archived; the business history is never lost.',
     'ec.arch.a': 'Admin iOS (owner)', 'ec.arch.b': 'Secure cloud · real time', 'ec.arch.c': 'Supervisores Android',
     'ec.s1': 'locations in production', 'ec.s2': 'traffic-light levels', 'ec.s3': 'native platforms', 'ec.s4': 'source of truth: the server',
-    'ec.note': 'Screens tagged “prototype” belong to the interactive design approved before building; the system runs today with the business’s real data.',
+    'ec.note': 'An internal system in production: out of respect for the business’s real data, only the front doors are shown here — what it does inside is told by the features below.',
 
     /* La Cocina */
     'lc.kicker': 'Case 04 · Mexican restaurant · York, Nebraska',
@@ -127,6 +127,10 @@
     els().forEach(el => {
       const k = el.getAttribute('data-i18n');
       if (I18N[lang][k] !== undefined) el.innerHTML = I18N[lang][k];
+    });
+    // Apps con idioma nativo (ShineBright, La Cocina): sus capturas cambian con la página.
+    document.querySelectorAll('img[data-lang-src]').forEach(im => {
+      im.src = im.getAttribute('data-lang-src').replace('{lang}', lang);
     });
     document.title = I18N[lang]['meta.title'] || document.title;
     const md = document.querySelector('meta[name="description"]');
